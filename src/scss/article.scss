@@ -1,0 +1,107 @@
+// ==============FULL ARTICLE STYLES=================
+
+.full-article {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+  // .full-article__image
+
+  &__image {
+    position: relative;
+    @media (max-width: 767.98px) {
+      // border-radius: 12px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+  }
+
+  // .full-article__image-ibg
+
+  &__image-ibg {
+    padding-bottom: 65.742%;
+  }
+
+  // .full-article__category
+
+  &__category {
+    font-size: 10px;
+    line-height: 1.2;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #999999;
+    margin-top: 5px;
+    margin-bottom: 18px;
+  }
+
+  // .full-article__content
+
+  &__content {
+  }
+
+  // .full-article__author
+  &__author {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #000000;
+    margin-bottom: 3px;
+  }
+
+  // .full-article__add-info
+  &__add-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+  // .full-article__title
+
+  &__title {
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 1.17;
+    text-transform: uppercase;
+    color: #000000;
+    margin-bottom: 15px;
+    @media (max-width: 1327px) {
+      font-size: 30px;
+    }
+    @media (max-width: 1220px) {
+      font-size: 24px;
+    }
+    @media (max-width: 1180px) {
+      margin-bottom: 15px;
+    }
+    @media (max-width: 767.98px) {
+      font-size: 20px;
+    }
+  }
+
+  // .full-article__text
+
+  &__text {
+    font-family: "Source Serif Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #666666;
+    // display: flex;
+    text-align: justify;
+  }
+}
+.article {
+  // .article__author
+
+  &__author {
+  }
+
+  // .article__data
+
+  &__data {
+  }
+}

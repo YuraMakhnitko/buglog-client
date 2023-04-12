@@ -1,0 +1,142 @@
+//  ===========COMMENTS STYLES=============================
+
+.comments {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  // .comments__header
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+
+  // .comments__title
+
+  &__title {
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    // color: #999999;
+    color: #000;
+  }
+
+  // .comments__add-comment
+
+  &__add-comment {
+    // padding: 3px 8px;
+    // border: 1px solid #000;
+    // border-radius: 3px;
+    // transition: all 0.2s ease 0s;
+    // &:hover {
+    //   border: 1px solid rgba(0, 0, 0, 0.2);
+    //   box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.09);
+    //   color: #fff;
+    //   background-color: blue;
+    // }
+    @media (max-width: 767.98px) {
+      // border-radius: 6px;
+    }
+  }
+
+  // .comments__items
+  &__items {
+    display: flex;
+    flex-direction: column;
+    // gap: 10px;
+  }
+
+  // .comments__item
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px 0px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    margin-bottom: 10px;
+    // &:not(:last-child) {
+    // }
+    @media (max-width: 767.98px) {
+      // border-radius: 12px;
+      border-radius: 4px;
+    }
+  }
+
+  // .comments__avatar
+  &__avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+  // .comments__info
+
+  &__info {
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+    gap: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    @media (max-width: 460px) {
+      gap: 10px;
+    }
+    @media (max-width: 385px) {
+      flex-direction: column;
+      align-items: start;
+    }
+  }
+
+  // .comments__user
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    @media (max-width: 460px) {
+      gap: 10px;
+    }
+  }
+
+  // .comments__user
+
+  &__user-name {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #000000;
+    margin-bottom: 3px;
+  }
+
+  // .comments__add-data
+
+  &__add-data {
+    font-size: 12px;
+    color: #999999;
+    line-height: 1.2;
+  }
+
+  // .comments__full-text
+
+  &__full-text {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    text-align: justify;
+  }
+
+  &__text-area {
+    outline: unset;
+    :focus {
+      outline: unset;
+    }
+  }
+}
+
+// .css-1n7zltw-MuiButtonBase-root-MuiButton-root {
+//   margin-top: 0px;
+//   margin-bottom: 0px;
+// }
