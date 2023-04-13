@@ -226,7 +226,7 @@
       // position: relative;
       // position: absolute;
       // right: 0;
-      z-index: 52;
+      // z-index: 52;
       //   min-width: 100%;
       //   width: 100%;
     }
@@ -270,14 +270,6 @@
       }
     }
 
-    @media (max-width: 650px) {
-      // background-color: rgba(25, 118, 210, 0.1);
-      &:focus {
-        // z-index: 52;
-        // width: 250px;
-        // background: #fff;
-      }
-    }
     &:focus {
       outline: 1px solid rgba(25, 118, 210, 0.8);
     }
