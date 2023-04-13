@@ -18,10 +18,12 @@ import { fetchSearchValue, fetchCategory } from "../redux/filter/athyncActions";
 import Categories from "./Categories";
 
 import UserMenu from "./UserMenu";
+import { useScreenSize } from "../hooks/useScreenSize";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const screenSize = useScreenSize();
   const { user, isAuth } = useSelector((state) => state.auth);
   const [inputValue, setInputValue] = useState("");
 
@@ -57,15 +59,21 @@ const Header = () => {
             <Link to="/" className="header__logo-link">
               <ImBlogger className="header__logo-icon" />
             </Link>
-            <Link to="/" className="header__logo-link">
+            {screenSize.width > 520 && (
+              <Link to="/" className="header__logo-link">
+                UBLOG
+              </Link>
+            )}
+            {/* <Link to="/" className="header__logo-link">
               UBLOG
-            </Link>
+            </Link> */}
           </div>
-          <div className="header__nav">
-            <Link to="/" className="header__link header__link_dn">
+          <div className="header__nav-header">
+            {/* <Link to="/" className="header__link header__link_dn">
               Home
-            </Link>
-            <Categories />
+            </Link> */}
+            {screenSize.width > 767.98 && <Categories />}
+            {/* <Categories /> */}
 
             <div className="header__auth">
               <div className="header__search">

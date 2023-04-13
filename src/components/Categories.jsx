@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
+import { useScreenSize } from "../hooks/useScreenSize";
 
 import { Button } from "@mui/material";
 import { IoIosArrowDown } from "react-icons/io";
@@ -20,11 +21,13 @@ const Categories = ({ hidden }) => {
   const dispatch = useDispatch();
 
   const categoryRef = useRef();
+  const screenSize = useScreenSize();
 
   const [popup, setPopup] = useState(false);
   const categories = useSelector((state) => state.filter.categories);
 
   const categoryTitle = useSelector((state) => state.filter.categoryTitle);
+  console.log(categoryTitle);
 
   const popupOpen = `header__categories-box_on`;
 
@@ -60,18 +63,20 @@ const Categories = ({ hidden }) => {
       ref={categoryRef}
       onClick={useClickOutside(categoryRef)}
     >
-      <Button
-        onClick={setPopupState}
-        variant="outlined"
-        size="small"
-        className="header__button"
-      >
-        {categoryTitle} <IoIosArrowDown />
-      </Button>
-      {/* <div className="header__category" onClick={setPopupState}>
-        <p className="header__category-title">{categoryTitle}</p>
-        <IoIosArrowDown />
-      </div> */}
+      {screenSize.width > 767.98 ? (
+        <Button onClick={setPopupState} size="small">
+          {" "}
+          <p>{categoryTitle}</p>
+          <IoIosArrowDown className="header__category-arrow" />
+        </Button>
+      ) : (
+        <div className="header__button" onClick={setPopupState}>
+          <p className="posts__title">
+            {categoryTitle} {categoryTitle === "All Articles" ? "" : "POSTS"}
+          </p>
+          <IoIosArrowDown className="header__category-arrow_mobile" />
+        </div>
+      )}
       <div className={`header__categories-box ${popup ? popupOpen : ""}`}>
         {categories.map((category) => (
           <Link

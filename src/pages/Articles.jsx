@@ -11,10 +11,12 @@ import Categories from "../components/Categories";
 import ArticlesSkeleton from "../components/skeletons/ArticlesSkeleton";
 
 import { fetchCategory } from "../redux/filter/athyncActions";
+import { useScreenSize } from "../hooks/useScreenSize";
 
 const Articles = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const screenSize = useScreenSize();
 
   const { articles, categoryTitle, categoryId, isLoading } = useSelector(
     (state) => state.filter
@@ -32,10 +34,19 @@ const Articles = () => {
 
   return !isLoading ? (
     <section className="blog__posts posts">
-      {/* <Categories hidden /> */}
-      <p className="posts__title">
+      {screenSize.width > 767.98 ? (
+        <p className="posts__title">
+          {categoryTitle} {articlePath === "all articles" ? "" : "POSTS"}
+        </p>
+      ) : (
+        <Categories />
+      )}
+      {/* <Categories /> */}
+      {/* //{" "} */}
+      {/* <p className="posts__title">
         {categoryTitle} {articlePath === "all articles" ? "" : "POSTS"}
-      </p>
+        {" "}
+      </p> */}
       <div className="posts__content">
         {articles.map((article) => {
           {
