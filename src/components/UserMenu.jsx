@@ -66,6 +66,7 @@ const UserMenu = () => {
   const screenSize = useScreenSize();
   const navigate = useNavigate();
   const { user, isAuth } = useSelector((state) => state.auth);
+  const moreButtonStyle = isAuth ? 'more-icon' : '';
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -101,11 +102,12 @@ const UserMenu = () => {
         aria-expanded={open ? 'true' : undefined}
         variant="contained"
         onClick={handleClick}
+        className={moreButtonStyle}
       >
         <MoreIcon />
       </IconButton>
       <StyledMenu
-        id="demo-customized-menu"
+        // id="demo-customized-menu"
         MenuListProps={{
           'aria-labelledby': 'demo-customized-button',
         }}
