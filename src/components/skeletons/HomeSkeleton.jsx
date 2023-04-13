@@ -5,7 +5,7 @@ const HomeSkeleton = () => {
   return (
     <>
       <section className="blog__slider">
-        <Skeleton variant="rounded" height={473} />;
+        <Skeleton variant="rounded" height={473} />
       </section>
 
       <section className="blog__posts posts">
