@@ -1,15 +1,16 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import ArticleCard from "../components/ArticleCard";
-import HomeSlider from "../components/slider";
+import ArticleCard from '../components/ArticleCard';
+import HomeSlider from '../components/slider';
+import Categories from '../components/Categories';
 
-import { fetchCategory } from "../redux/filter/athyncActions";
-import { setCategory, setIsLoading } from "../redux/filter/slice";
+import { fetchCategory } from '../redux/filter/athyncActions';
+import { setCategory, setIsLoading } from '../redux/filter/slice';
 
-import HomeSkeleton from "../components/skeletons/HomeSkeleton";
+import HomeSkeleton from '../components/skeletons/HomeSkeleton';
 
-import { useScreenSize } from "../hooks/useScreenSize";
+import { useScreenSize } from '../hooks/useScreenSize';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(setIsLoading(true));
-    dispatch(setCategory("Latest"));
+    dispatch(setCategory('Latest'));
     dispatch(fetchCategory({ categoryId: 1 }));
   }, []);
 
@@ -36,9 +37,13 @@ const Home = () => {
       )}
 
       <section className="blog__posts posts">
-        <p className="posts__title">
-          {categoryTitle} {categoryTitle === "all articles" ? "" : "POSTS"}
-        </p>
+        {screenSize.width > 767.98 ? (
+          <p className="posts__title">
+            {categoryTitle} {categoryTitle === 'All Articles' ? '' : 'POSTS'}
+          </p>
+        ) : (
+          <Categories />
+        )}
         <div className="posts__content">
           {articles.map((article) => {
             {
