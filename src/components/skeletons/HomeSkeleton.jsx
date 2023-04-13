@@ -1,12 +1,17 @@
+import { useScreenSize } from "../../hooks/useScreenSize";
+
 import Skeleton from "@mui/material/Skeleton";
 
 const HomeSkeleton = () => {
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
+  const screeSize = useScreenSize();
   return (
     <>
-      <section className="blog__slider">
-        <Skeleton variant="rounded" height={473} />
-      </section>
+      {screeSize.width > 767.98 && (
+        <section className="blog__slider">
+          <Skeleton variant="rounded" height={473} />
+        </section>
+      )}
 
       <section className="blog__posts posts">
         <p className="posts__title">

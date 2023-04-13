@@ -91,7 +91,8 @@ const UserMenu = () => {
         size="large"
         aria-label="display more actions"
         edge="end"
-        color="inherit"
+        // color="inherit"
+        color="primary"
         aria-controls={open ? "demo-customized-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
