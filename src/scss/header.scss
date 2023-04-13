@@ -306,6 +306,7 @@
     opacity: 0.5;
     height: 24px;
     width: 24px;
+    color: #1976d2;
     cursor: pointer;
     @media (max-width: 767.98px) {
       z-index: 110;
@@ -350,7 +351,7 @@
     width: 100%;
     align-items: center;
     gap: 15px;
-    z-index: 52;
+    // z-index: 52;
     justify-content: space-between;
     &_not-auth {
       @media (max-width: 520px) {
@@ -359,7 +360,7 @@
     }
 
     @media (max-width: 767.98px) {
-      z-index: 52;
+      // z-index: 52;
       // flex-direction: column;
     }
     @media (max-width: 520px) {
