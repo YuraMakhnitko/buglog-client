@@ -3,16 +3,17 @@ import { useScreenSize } from "../../hooks/useScreenSize";
 
 const ArticleSkeleton = () => {
   const screenSize = useScreenSize();
-  console.log(screenSize.width);
   const imgSckeletonHeigtht = (screenSize.width - 40) * 0.6;
+  console.log(imgSckeletonHeigtht);
 
   return (
     <>
       <div className="full-article">
         <div className="full-article__image">
-          {/* <div className="full-article__image-ibg">
-          </div> */}
-          <Skeleton variant="rounded" height={imgSckeletonHeigtht} />
+          <Skeleton
+            variant="rounded"
+            height={imgSckeletonHeigtht ? imgSckeletonHeigtht : 300}
+          />
         </div>
         <p className="full-article__category">
           <Skeleton variant="text" sx={{ fontSize: "12px" }} width={150} />

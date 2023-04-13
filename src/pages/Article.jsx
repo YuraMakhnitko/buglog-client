@@ -5,6 +5,7 @@ import axios from "../redux/settings/axios";
 import { useSelector, useDispatch } from "react-redux";
 
 import { fetchRemoveArticle } from "../redux/filter/athyncActions";
+
 import { useFormatDate } from "../hooks/useFormatDate";
 
 import EditBlock from "../components/EditBlock";
@@ -22,17 +23,11 @@ const Article = () => {
   const { id, categoryId } = useParams();
   const [article, setArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [searchId, setSearchId] = useState();
-  const [comments, setComments] = useState([]);
+
   const [categoryName, setCategoryName] = useState("");
 
   const { month, year, day, time } = useFormatDate(article.createdAt);
 
-  // const categoryName = categories.find(
-  //   (category) => category.categoryId === article.category
-  // );
-
-  // console.log(article.comments, "article.comments");
   console.log(isLoading, "isLoading");
 
   useEffect(() => {
@@ -40,7 +35,6 @@ const Article = () => {
       .get(`/articles/${id}`)
       .then((res) => {
         setArticle(res.data);
-        setComments(res.data.comments);
         const category = categories.find(
           (category) => category.categoryId === res.data.category
         );
@@ -62,7 +56,6 @@ const Article = () => {
 
   return !isLoading ? (
     <>
-      {/* <ArticleSkeleton /> */}
       <div className="full-article">
         <div className="full-article__image">
           <div className="full-article__image-ibg">

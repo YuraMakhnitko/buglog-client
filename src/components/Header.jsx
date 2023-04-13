@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 
 import { Button } from "@mui/material";
-
 import { BsSearch } from "react-icons/bs";
 import { FiDelete } from "react-icons/fi";
 import { ImBlogger } from "react-icons/im";
@@ -13,21 +12,17 @@ import Avatar from "@mui/material/Avatar";
 import AvatarNoImg from "./AvatarNoImg";
 
 import { setLogOut } from "../redux/auth/slice";
+import { setCategory } from "../redux/filter/slice";
+import { fetchSearchValue, fetchCategory } from "../redux/filter/athyncActions";
 
 import Categories from "./Categories";
 
 import UserMenu from "./UserMenu";
-import { useEffect } from "react";
-import { fetchSearchValue, fetchCategory } from "../redux/filter/athyncActions";
-import { setCategory } from "../redux/filter/slice";
-import { useScreenSize } from "../hooks/useScreenSize";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const screenSize = useScreenSize();
   const { user, isAuth } = useSelector((state) => state.auth);
-  const { categoryId, categoryTitle } = useSelector((state) => state.filter);
   const [inputValue, setInputValue] = useState("");
 
   const searchValue = useDebounce(inputValue, 150)[0];
@@ -71,9 +66,6 @@ const Header = () => {
               Home
             </Link>
             <Categories />
-            {/* <a href="#" className="header__link header__link_dn">
-              About
-            </a> */}
 
             <div className="header__auth">
               <div className="header__search">

@@ -1,18 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 
-import { useSelector, useDispatch } from "react-redux";
-// import { useClickOutside } from "../hooks/useClickOutSide";
+import { useSelector } from "react-redux";
 
 const SelectCategory = ({ categorySelected, setCategorySelected }) => {
-  const { category } = useParams();
-
-  const dispatch = useDispatch();
-
   const categoryRef = useRef();
 
-  const categoryText = "Choose Category";
   const [popup, setPopup] = useState(false);
 
   const [categoriesList, setCategoriesList] = useState([]);
@@ -31,8 +23,6 @@ const SelectCategory = ({ categorySelected, setCategorySelected }) => {
     setCategorySelected(category);
     setPopup(false);
   };
-
-  //   console.log(categoryPath);
 
   const setPopupState = () => {
     setPopup(!popup);

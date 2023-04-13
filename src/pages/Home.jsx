@@ -14,10 +14,8 @@ import { useScreenSize } from "../hooks/useScreenSize";
 const Home = () => {
   const dispatch = useDispatch();
   const screenSize = useScreenSize();
-  console.log(screenSize.height);
 
   const { articles, isLoading } = useSelector((state) => state.filter);
-  // const { isAuth, user } = useSelector((state) => state.auth);
 
   const categoryTitle = useSelector(
     (state) => state.filter.categoryTitle

@@ -5,7 +5,6 @@ const ArticlesSkeleton = () => {
 
   return (
     <section className="blog__posts posts">
-      {/* <Categories hidden /> */}
       <p className="posts__title">
         <Skeleton variant="text" sx={{ fontSize: "20px" }} width={150} />
       </p>

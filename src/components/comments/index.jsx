@@ -6,7 +6,7 @@ import AddComment from "./AddComment";
 import Comment from "./Comment";
 
 const Comments = ({ comments }) => {
-  const { isAuth, user } = useSelector((state) => state.auth);
+  const { isAuth } = useSelector((state) => state.auth);
 
   return (
     <div className="full-article__comments comments">

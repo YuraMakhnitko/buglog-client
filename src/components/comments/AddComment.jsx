@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useParams, useNavigate } from "react-router";
+import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 
@@ -14,8 +13,7 @@ import { setCommentsUpdated } from "../../redux/comments/slice";
 import axios from "../../redux/settings/axios";
 
 const AddComment = () => {
-  const { categoryId, id } = useParams();
-  const navigate = useNavigate();
+  const { id } = useParams();
 
   const {
     register,
@@ -30,7 +28,7 @@ const AddComment = () => {
   });
 
   const dispatch = useDispatch();
-  const { isAuth, user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const { commentsUpdated } = useSelector((state) => state.comments);
 
   const createNewComment = async (data) => {
@@ -43,7 +41,6 @@ const AddComment = () => {
     await axios.post("/addcomment", fields);
     resetField("commentText");
     dispatch(setCommentsUpdated(!commentsUpdated));
-    console.log("comment added!");
   };
 
   return (
@@ -109,7 +106,7 @@ const AddComment = () => {
               "--Textarea-focusedThickness": "var(--joy-focus-thickness, 0px)",
             }}
           />
-          {errors.commetnText && <p>{errors.commetnText.message}</p>}
+          {errors.commentText && <p>{errors.commentText.message}</p>}
         </div>
       </>
     </Box>

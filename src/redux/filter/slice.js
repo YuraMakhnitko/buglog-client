@@ -68,8 +68,6 @@ export const fileterSlice = createSlice({
   },
 });
 
-// export const { setCategory, setCategoryId, setSearchValue, setNewArticle } =
-//   fileterSlice.actions;
 export const { setCategory, setCategoryId, setIsLoading } =
   fileterSlice.actions;
 

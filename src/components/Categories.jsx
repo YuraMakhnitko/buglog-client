@@ -1,21 +1,21 @@
 import { useState, useRef, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
+
+import { Button } from "@mui/material";
+import { IoIosArrowDown } from "react-icons/io";
 
 import {
   setCategory,
   setCategoryId,
   setIsLoading,
 } from "../redux/filter/slice";
-import { fetchCategory } from "../redux/filter/athyncActions";
 
 const Categories = ({ hidden }) => {
   const visibleStyle = hidden
     ? "header__categories_hidden"
     : "header__categories";
-
-  const { categoryId } = useParams();
 
   const dispatch = useDispatch();
 
@@ -23,9 +23,6 @@ const Categories = ({ hidden }) => {
 
   const [popup, setPopup] = useState(false);
   const categories = useSelector((state) => state.filter.categories);
-  const articles = useSelector((state) => state.filter.articles);
-  const isLoading = useSelector((state) => state.filter.isLoading);
-  // console.log(categories[0].title);
 
   const categoryTitle = useSelector((state) => state.filter.categoryTitle);
 
@@ -37,19 +34,6 @@ const Categories = ({ hidden }) => {
     dispatch(setIsLoading(true));
     setPopup(false);
   };
-
-  // useEffect(() => {
-  //   if (categoryId) {
-  //     const findCategory = categories.find(
-  //       (obj) => obj.categoryId === Number(categoryId)
-  //     );
-  //     dispatch(setCategory(findCategory.title));
-  //     dispatch(fetchCategory({ categoryId }));
-  //     // dispatch(setIsLoading(false));
-  //     // console.log(categoryId);
-  //     return;
-  //   }
-  // }, [categoryId]);
 
   const setPopupState = () => {
     setPopup(!popup);
@@ -76,12 +60,25 @@ const Categories = ({ hidden }) => {
       ref={categoryRef}
       onClick={useClickOutside(categoryRef)}
     >
-      <p className="header__category" onClick={setPopupState}>
-        {categoryTitle}
-      </p>
+      <Button
+        onClick={setPopupState}
+        variant="outlined"
+        size="small"
+        className="header__button"
+      >
+        {categoryTitle} <IoIosArrowDown />
+      </Button>
+      {/* <div className="header__category" onClick={setPopupState}>
+        <p className="header__category-title">{categoryTitle}</p>
+        <IoIosArrowDown />
+      </div> */}
       <div className={`header__categories-box ${popup ? popupOpen : ""}`}>
         {categories.map((category) => (
-          <Link to={`/${category.categoryId}`} key={category.categoryId}>
+          <Link
+            to={`/${category.categoryId}`}
+            key={category.categoryId}
+            className="header__category-link"
+          >
             <button
               className="header__category-type"
               onClick={() =>

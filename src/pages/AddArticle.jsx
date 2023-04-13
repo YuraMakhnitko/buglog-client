@@ -1,34 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { Button } from '@mui/material';
-import Textarea from '@mui/joy/Textarea';
-import Box from '@mui/material/Box';
+import { Button } from "@mui/material";
+import Textarea from "@mui/joy/Textarea";
+import Box from "@mui/material/Box";
 
-import SelectCategory from '../components/SelectCategory';
-import axios from '../redux/settings/axios';
+import SelectCategory from "../components/SelectCategory";
+import axios from "../redux/settings/axios";
 
 const AddArticle = () => {
-  const hostUrl = 'https://bublog-back.onrender.com/src';
-  const categoryText = 'Choose Category';
+  const hostUrl = "https://bublog-back.onrender.com/src";
+  const categoryText = "Choose Category";
   const navigate = useNavigate();
+
   const { id } = useParams();
-
-  // console.log(id);
-
   const isEditing = Boolean(id);
   const { isAuth, user } = useSelector((state) => state.auth);
   const { categories, articles } = useSelector((state) => state.filter);
 
-  const [articleImgUrl, setArticleImgUrl] = useState('');
-  const [title, setTitle] = useState('');
+  const [articleImgUrl, setArticleImgUrl] = useState("");
+  const [title, setTitle] = useState("");
   const [articleText, setArticleText] = useState();
 
   const [categorySelected, setCategorySelected] = useState({
     title: categoryText,
-    categoryId: '',
+    categoryId: "",
   });
 
   useEffect(() => {
@@ -45,8 +43,8 @@ const AddArticle = () => {
     }
   }, []);
 
-  console.log(articleImgUrl, 'articleImageUrl');
-  console.log(articleText, 'articleText');
+  console.log(articleImgUrl, "articleImageUrl");
+  console.log(articleText, "articleText");
 
   const {
     register,
@@ -55,20 +53,16 @@ const AddArticle = () => {
     formState: { errors, isValid },
   } = useForm({});
 
-  console.log(articles);
-
-  const dispatch = useDispatch();
-
   const handleAddImage = async (event) => {
     try {
       const formData = new FormData();
       const file = event.target.files[0];
-      formData.append('image', file);
-      const { data } = await axios.post('/upload/articles', formData);
+      formData.append("image", file);
+      const { data } = await axios.post("/upload/articles", formData);
       setArticleImgUrl(`${hostUrl}${data.url}`);
     } catch (error) {
       console.warn(error);
-      alert('Error when uploading file');
+      alert("Error when uploading file");
     }
   };
 
@@ -81,7 +75,7 @@ const AddArticle = () => {
     try {
       const { data } = isEditing
         ? await axios.patch(`/articles/${id}`, fields)
-        : await axios.post('/addarticle', fields);
+        : await axios.post("/addarticle", fields);
 
       const _id = isEditing ? id : data._id;
       const category = isEditing ? categorySelected.categoryId : data.category;
@@ -89,12 +83,12 @@ const AddArticle = () => {
       navigate(`/${category}/${_id}`);
     } catch (error) {
       console.warn(error);
-      alert('Error when creating article');
+      alert("Error when creating article");
     }
   };
 
   const onClickDeletImage = () => {
-    setArticleImgUrl('');
+    setArticleImgUrl("");
   };
 
   return (
@@ -154,11 +148,10 @@ const AddArticle = () => {
                   className="hide-input"
                   type="select"
                   value={categorySelected.categoryId}
-                  {...register('categoryId', {
-                    required: 'You must choose category!',
+                  {...register("categoryId", {
+                    required: "You must choose category!",
                   })}
                 />
-                {/* {errors.categoryId && <p>{errors.categoryId.message}</p>} */}
               </div>
               <Textarea
                 placeholder="Type article title…"
@@ -166,17 +159,17 @@ const AddArticle = () => {
                 variant="outlined"
                 defaultValue={title}
                 error={!!errors.title}
-                {...register('title', {
-                  required: 'Field is empty',
+                {...register("title", {
+                  required: "Field is empty",
                   maxLength: {
                     value: 600,
-                    message: '600 letters maximum',
+                    message: "600 letters maximum",
                   },
                 })}
                 sx={{
                   minWidth: 200,
-                  '--Textarea-focusedThickness':
-                    'var(--joy-focus-thickness, 1px)',
+                  "--Textarea-focusedThickness":
+                    "var(--joy-focus-thickness, 1px)",
                 }}
               />
               {errors.title && <p>{errors.title.message}</p>}
@@ -186,17 +179,17 @@ const AddArticle = () => {
                 minRows={7}
                 variant="outlined"
                 error={!!errors.articleText}
-                {...register('articleText', {
-                  required: 'Field is empty',
+                {...register("articleText", {
+                  required: "Field is empty",
                   maxLength: {
                     value: 4000,
-                    message: '4000 letters maximum',
+                    message: "4000 letters maximum",
                   },
                 })}
                 sx={{
                   minWidth: 200,
-                  '--Textarea-focusedThickness':
-                    'var(--joy-focus-thickness, 1px)',
+                  "--Textarea-focusedThickness":
+                    "var(--joy-focus-thickness, 1px)",
                 }}
               />
               {errors.articleText && <p>{errors.articleText.message}</p>}

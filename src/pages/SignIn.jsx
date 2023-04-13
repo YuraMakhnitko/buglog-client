@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -54,10 +53,7 @@ const theme = createTheme({
 const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user, isAuth } = useSelector((state) => state.auth);
-
-  console.log(user);
-  console.log(isAuth);
+  const { isAuth } = useSelector((state) => state.auth);
 
   const {
     register,
@@ -67,7 +63,6 @@ const SignIn = () => {
 
   const onSubmit = async (values) => {
     const data = await dispatch(fetchLogin(values));
-    console.log(data);
 
     if (!data.payload) {
       alert("Can`t login!");
@@ -76,13 +71,6 @@ const SignIn = () => {
     if ("token" in data.payload) {
       window.localStorage.setItem("token", data.payload.token);
     }
-    console.log(data.payload.token);
-
-    console.log(isAuth);
-    console.log(data);
-
-    // console.log(data);
-    // dispatch(setUser(data));
   };
   if (isAuth) {
     navigate("/");

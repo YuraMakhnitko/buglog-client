@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
 import AvatarNoImg from "../AvatarNoImg";
 
-import { setIsEdit, setCommentsUpdated } from "../../redux/comments/slice";
+import { setCommentsUpdated } from "../../redux/comments/slice";
 import { fetchRemoveComment } from "../../redux/comments/athyncActions";
 
 import EditBlock from "../EditBlock";

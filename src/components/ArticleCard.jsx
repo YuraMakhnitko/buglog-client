@@ -17,7 +17,6 @@ import {
   fetchCategory,
   fetchRemoveArticle,
 } from "../redux/filter/athyncActions";
-import { setIsLoading } from "../redux/filter/slice";
 
 const ArticleCard = ({ article }) => {
   const dispatch = useDispatch();
@@ -29,8 +28,6 @@ const ArticleCard = ({ article }) => {
   const { categoryTitle, categoryId, categories } = useSelector(
     (state) => state.filter
   );
-
-  // console.log(isLoading, "isloading");
 
   const [commentsAmount, setCommentsAmount] = useState();
 

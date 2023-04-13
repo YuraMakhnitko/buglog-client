@@ -1,5 +1,4 @@
-import axios from "../redux/settings/axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -13,19 +12,13 @@ import ArticlesSkeleton from "../components/skeletons/ArticlesSkeleton";
 
 import { fetchCategory } from "../redux/filter/athyncActions";
 
-import { setIsLoading } from "../redux/filter/slice";
-
 const Articles = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { articles, categoryTitle, categoryId, isLoading, categories } =
-    useSelector((state) => state.filter);
-
-  // const [articlesWithComments, setArticlesWithComments] = useState([]);
-
-  console.log(isLoading, "isLoading");
-  // console.log(articlesWithComments, "articlesWithComments");
+  const { articles, categoryTitle, categoryId, isLoading } = useSelector(
+    (state) => state.filter
+  );
 
   const articlePath = categoryTitle.toLowerCase();
 
@@ -37,11 +30,9 @@ const Articles = () => {
     navigate(`/${categoryId}`);
   }, [articles.length]);
 
-  // status === "SUCCESS"
-
   return !isLoading ? (
     <section className="blog__posts posts">
-      <Categories hidden />
+      {/* <Categories hidden /> */}
       <p className="posts__title">
         {categoryTitle} {articlePath === "all articles" ? "" : "POSTS"}
       </p>

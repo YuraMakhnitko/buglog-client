@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { styled, alpha } from "@mui/material/styles";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Button } from "@mui/material";
 import Menu from "@mui/material/Menu";
@@ -8,13 +9,10 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import { HiOutlineDocumentAdd } from "react-icons/hi";
-import { RxAvatar } from "react-icons/rx";
 import { BiLogOut } from "react-icons/bi";
-// import { green, pink } from "@mui/material/colors";
 
 import { setLogOut } from "../redux/auth/slice";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useScreenSize } from "../hooks/useScreenSize";
 
 const StyledMenu = styled((props) => (
@@ -49,7 +47,6 @@ const StyledMenu = styled((props) => (
       fontSize: 14,
       "& .MuiSvgIcon-root": {
         fontSize: 24,
-        // color: theme.palette.text.secondary,
         color: "#1976d2",
         marginRight: theme.spacing(1.5),
       },
@@ -64,11 +61,9 @@ const StyledMenu = styled((props) => (
 }));
 
 const UserMenu = () => {
-  const inputFileRef = useRef(null);
   const dispatch = useDispatch();
   const screenSize = useScreenSize();
   const navigate = useNavigate();
-  // const { isAuth, user } = useSelector((state) => state.auth);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {

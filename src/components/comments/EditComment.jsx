@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "../../redux/settings/axios";
 import { useForm } from "react-hook-form";
@@ -7,9 +6,6 @@ import { Button } from "@mui/material";
 
 import Textarea from "@mui/joy/Textarea";
 import Box from "@mui/material/Box";
-
-// import AvatarNoImg from "./AvatarNoImg";
-import { fetchUdpadeComment } from "../../redux/comments/athyncActions";
 
 import { setIsEdit, setCommentsUpdated } from "../../redux/comments/slice";
 
@@ -29,8 +25,6 @@ const EditComment = ({ comment }) => {
       const updatedComment = {
         commentText: data.commentText,
       };
-      // const newComment = { ...comment, commentText: data.commentText };
-      // await dispatch(fetchUdpadeComment(comment._id, data.commentText));
       await axios.patch(`/comments/${comment._id}`, updatedComment);
       dispatch(setIsEdit(!isEdit));
       dispatch(setCommentsUpdated(!commentsUpdated));
