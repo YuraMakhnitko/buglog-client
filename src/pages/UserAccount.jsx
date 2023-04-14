@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import { useForm } from "react-hook-form";
 
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -58,6 +59,14 @@ const UserAccount = () => {
   const { user, isAuth } = useSelector((state) => state.auth);
   const inputFileRef = useRef(null);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm();
+
+  console.log(avatarUrl, "avatarUrl");
+
   const handleChangeFile = async (event) => {
     try {
       const formData = new FormData();
@@ -72,16 +81,18 @@ const UserAccount = () => {
   };
 
   const onSubmit = async () => {
-    const fields = { avatarUrl };
+    const fields = { avatarUrl: avatarUrl };
     const data = await axios.patch(`/account/${user._id}`, fields);
 
-    if (!data.payload) {
-      alert("Can`t login!");
-    }
+    console.log(data);
 
-    if ("token" in data.payload) {
-      window.localStorage.setItem("token", data.payload.token);
-    }
+    // if (!data.payload) {
+    //   alert("Can`t login!");
+    // }
+
+    // if ("token" in data.payload) {
+    //   window.localStorage.setItem("token", data.payload.token);
+    // }
     navigate("/");
   };
 
@@ -116,7 +127,12 @@ const UserAccount = () => {
           <Typography component="h1" variant="h5">
             User Account
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            sx={{ mt: 3 }}
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <Grid container spacing={1}>
               <Grid item xs={6}>
                 <Typography component="h1" variant="h6">
@@ -169,7 +185,7 @@ const UserAccount = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={onSubmit}
+              // onClick={onSubmit}
             >
               Submit
             </Button>

@@ -66,14 +66,12 @@ const Categories = ({ hidden }) => {
       {screenSize.width > 767.98 ? (
         <Button onClick={setPopupState} size="small">
           {" "}
-          <p>{categoryTitle}</p>
+          <p className="header__category-title-name">{categoryTitle}</p>
           <IoIosArrowDown className="header__category-arrow" />
         </Button>
       ) : (
         <div className="header__button" onClick={setPopupState}>
-          <p className="posts__title">
-            {categoryTitle} {categoryTitle === "All Articles" ? "" : "POSTS"}
-          </p>
+          <p className="posts__title">{categoryTitle}</p>
           <IoIosArrowDown className="header__category-arrow_mobile" />
         </div>
       )}

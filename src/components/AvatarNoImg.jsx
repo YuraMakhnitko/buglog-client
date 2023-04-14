@@ -30,7 +30,7 @@ const AvatarNoImg = ({ name }) => {
     };
   }
 
-  return <Avatar {...stringAvatar(`${name}`)} sx={{ width: 40, height: 40 }} />;
+  return <Avatar {...stringAvatar(`${name}`)} sx={{ width: 32, height: 32 }} />;
 };
 
 export default AvatarNoImg;

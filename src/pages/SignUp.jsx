@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import LibreFranklin from "../scss/common.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -74,9 +75,11 @@ const SignUp = () => {
 
     console.log(values);
   };
-  if (isAuth) {
-    navigate("/");
-  }
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/");
+    }
+  }, [isAuth]);
 
   return (
     <ThemeProvider theme={theme}>
