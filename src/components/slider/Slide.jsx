@@ -7,9 +7,11 @@ import axios from "../../redux/settings/axios";
 
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { useFormatDate } from "../../hooks/useFormatDate";
 
 const Slide = ({ slide }) => {
   const [commentsAmount, setCommentsAmount] = useState();
+  const { month, year, day, time } = useFormatDate(slide.createdAt);
 
   const { categoryTitle, categoryId, categories } = useSelector(
     (state) => state.filter
@@ -66,9 +68,12 @@ const Slide = ({ slide }) => {
                 alt="avatar"
                 className="comments__avatar"
               />
-              <p className="article__author article__author_category">
-                By {slide.user.name}
-              </p>
+              <div className="article__user-data">
+                <p className="article__author article__author_category">
+                  By {slide.user.name}
+                </p>
+                <p className="article__data">{`${year} ${month} ${day}, ${time}`}</p>
+              </div>
             </div>
 
             <div className="article__bottom article__bottom_slide">
