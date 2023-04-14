@@ -26,7 +26,7 @@ const Comment = ({ comment }) => {
     <div className="comments__item" key={comment._id}>
       <div className="comments__info">
         <div className="comments__user">
-          {user && user.avatarUrl ? (
+          {comment.user.avatarUrl ? (
             <Avatar
               alt={comment.user.name}
               src={comment.user.avatarUrl}

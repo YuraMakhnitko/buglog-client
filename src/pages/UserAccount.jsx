@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import LibreFranklin from "../scss/common.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -20,6 +20,7 @@ import Divider from "@mui/material/Divider";
 import axios from "../redux/settings/axios";
 
 import AvatarNoImg from "../components/AvatarNoImg";
+import { fetchAuthMe } from "../redux/auth/athyncActions";
 
 function Copyright(props) {
   return (
@@ -54,6 +55,7 @@ const theme = createTheme({
 
 const UserAccount = () => {
   const hostUrl = "https://bublog-back.onrender.com/src";
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [avatarUrl, setAvatarUrl] = useState("");
   const { user, isAuth } = useSelector((state) => state.auth);
@@ -83,16 +85,10 @@ const UserAccount = () => {
   const onSubmit = async () => {
     const fields = { avatarUrl: avatarUrl };
     const data = await axios.patch(`/account/${user._id}`, fields);
+    dispatch(fetchAuthMe());
 
     console.log(data);
 
-    // if (!data.payload) {
-    //   alert("Can`t login!");
-    // }
-
-    // if ("token" in data.payload) {
-    //   window.localStorage.setItem("token", data.payload.token);
-    // }
     navigate("/");
   };
 

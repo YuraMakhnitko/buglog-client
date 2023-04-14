@@ -27,7 +27,7 @@ const Categories = ({ hidden }) => {
   const categories = useSelector((state) => state.filter.categories);
 
   const categoryTitle = useSelector((state) => state.filter.categoryTitle);
-  console.log(categoryTitle);
+  // console.log(categoryTitle);
 
   const popupOpen = `header__categories-box_on`;
 
