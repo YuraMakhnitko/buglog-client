@@ -1,38 +1,39 @@
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDebounce } from 'use-debounce';
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDebounce } from "use-debounce";
 
-import { Button } from '@mui/material';
-import { BsSearch } from 'react-icons/bs';
-import { FiDelete } from 'react-icons/fi';
-import { ImBlogger } from 'react-icons/im';
-import Avatar from '@mui/material/Avatar';
+import { Button } from "@mui/material";
+import { BsSearch } from "react-icons/bs";
+import { FiDelete } from "react-icons/fi";
+import { ImBlogger } from "react-icons/im";
+import { FaCat } from "react-icons/fa";
+import Avatar from "@mui/material/Avatar";
 
-import AvatarNoImg from './AvatarNoImg';
+import AvatarNoImg from "./AvatarNoImg";
 
-import { setLogOut } from '../redux/auth/slice';
-import { setCategory } from '../redux/filter/slice';
-import { fetchSearchValue, fetchCategory } from '../redux/filter/athyncActions';
+import { setLogOut } from "../redux/auth/slice";
+import { setCategory } from "../redux/filter/slice";
+import { fetchSearchValue, fetchCategory } from "../redux/filter/athyncActions";
 
-import Categories from './Categories';
+import Categories from "./Categories";
 
-import UserMenu from './UserMenu';
-import { useScreenSize } from '../hooks/useScreenSize';
+import UserMenu from "./UserMenu";
+import { useScreenSize } from "../hooks/useScreenSize";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const screenSize = useScreenSize();
   const { user, isAuth } = useSelector((state) => state.auth);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const buttonBlockStyle = isAuth
-    ? 'header__block-buttons'
-    : 'header__block-buttons_not-auth';
+    ? "header__block-buttons"
+    : "header__block-buttons_not-auth";
 
   const authBlockStyle = isAuth
-    ? 'header__auth'
-    : 'header__auth header__auth_not-auth';
+    ? "header__auth"
+    : "header__auth header__auth_not-auth";
 
   const searchValue = useDebounce(inputValue, 150)[0];
 
@@ -44,18 +45,18 @@ const Header = () => {
     if (searchValue) {
       dispatch(fetchSearchValue(searchValue));
     } else {
-      dispatch(setCategory('Latest'));
+      dispatch(setCategory("Latest"));
       dispatch(fetchCategory({ categoryId: 1 }));
     }
   }, [searchValue]);
 
   const handleClearInput = () => {
-    setInputValue('');
+    setInputValue("");
   };
 
   const logOutHandler = () => {
     dispatch(setLogOut());
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -63,12 +64,18 @@ const Header = () => {
       <div className="header__container">
         <div className="header__content">
           <div className="header__logo">
+            {screenSize.width > 520 && (
+              <Link to="/" className="header__logo-link">
+                <ImBlogger className="header__logo-icon" />
+              </Link>
+            )}
             <Link to="/" className="header__logo-link">
-              <ImBlogger className="header__logo-icon" />
+              {/* <ImBlogger className="header__logo-icon" /> */}
+              <FaCat className="header__logo-icon" />
             </Link>
             {screenSize.width > 520 && (
               <Link to="/" className="header__logo-link">
-                UBLOG
+                BLOG
               </Link>
             )}
             {/* <Link to="/" className="header__logo-link">
@@ -105,8 +112,8 @@ const Header = () => {
                     {user.avatarUrl ? (
                       <Link to="/account">
                         <Avatar
-                          alt={user.name ? user.name : ''}
-                          src={user.avatarUrl ? user.avatarUrl : ''}
+                          alt={user.name ? user.name : ""}
+                          src={user.avatarUrl ? user.avatarUrl : ""}
                           sx={{ width: 32, height: 32 }}
                         />
                       </Link>

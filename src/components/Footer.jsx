@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaTelegram, FaGithub } from "react-icons/fa";
 import { BsLinkedin, BsDiscord } from "react-icons/bs";
 import { ImBlogger2 } from "react-icons/im";
+import { FaCat } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -13,9 +14,10 @@ const Footer = () => {
             <div className="footer__logo">
               <Link to="/" className="footer__logo-link">
                 <ImBlogger2 />
+                <FaCat />
               </Link>
               <Link to="/" className="footer__logo-link">
-                UBLOG
+                BLOG
               </Link>
             </div>
             <p className="footer__sub-title">

@@ -60,7 +60,7 @@
       0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 
     @media (max-width: 520px) {
-      padding: 7px 10px;
+      padding: 3px 5px;
       // align-self: flex-start;
       // width: 155px;
       justify-content: center;
@@ -68,10 +68,13 @@
   }
   &__logo-link {
     color: white;
-
     font-size: 22px;
     font-weight: 700;
     @media (max-width: 520px) {
+      & svg {
+        height: 30px;
+        width: 30px;
+      }
       // font-size: 17px;
     }
   }
