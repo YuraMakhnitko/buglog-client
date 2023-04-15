@@ -1,26 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 
-import LibreFranklin from "../scss/common.scss";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import LibreFranklin from '../scss/common.scss';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
 
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import { useForm } from "react-hook-form";
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import { useForm } from 'react-hook-form';
 
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import IconButton from "@mui/material/IconButton";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import Divider from "@mui/material/Divider";
-import axios from "../redux/settings/axios";
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Divider from '@mui/material/Divider';
+import axios from '../redux/settings/axios';
 
-import AvatarNoImg from "../components/AvatarNoImg";
-import { fetchAuthMe } from "../redux/auth/athyncActions";
+import AvatarNoImg from '../components/AvatarNoImg';
+import { fetchAuthMe } from '../redux/auth/athyncActions';
 
 function Copyright(props) {
   return (
@@ -30,34 +30,35 @@ function Copyright(props) {
       align="center"
       {...props}
     >
-      {"Copyright © "}
+      {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
         Your Website
-      </Link>{" "}
+      </Link>{' '}
       {new Date().getFullYear()}
-      {"."}
+      {'.'}
     </Typography>
   );
 }
 
 const theme = createTheme({
   typography: {
-    fontFamily: "Libre Franklin, Arial",
+    fontFamily: 'Libre Franklin, Arial',
   },
   overrides: {
     MuiCssBaseline: {
-      "@global": {
-        "@font-face": [LibreFranklin],
+      '@global': {
+        '@font-face': [LibreFranklin],
       },
     },
   },
 });
 
 const UserAccount = () => {
-  const hostUrl = "https://bublog-back.onrender.com/src";
+  const hostUrl = 'https://bublog-back.onrender.com/src';
+  // const hostUrl = 'https://glowing-sunflower-09cd1a.netlify.app/src';
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [avatarUrl, setAvatarUrl] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState('');
   const { user, isAuth } = useSelector((state) => state.auth);
   const inputFileRef = useRef(null);
 
@@ -67,18 +68,18 @@ const UserAccount = () => {
     formState: { errors, isValid },
   } = useForm();
 
-  console.log(avatarUrl, "avatarUrl");
+  console.log(avatarUrl, 'avatarUrl');
 
   const handleChangeFile = async (event) => {
     try {
       const formData = new FormData();
       const file = event.target.files[0];
-      formData.append("image", file);
-      const { data } = await axios.post("/upload/avatars", formData);
+      formData.append('image', file);
+      const { data } = await axios.post('/upload/avatars', formData);
       setAvatarUrl(`${hostUrl}${data.url}`);
     } catch (error) {
       console.warn(error);
-      alert("Error when uploading file");
+      alert('Error when uploading file');
     }
   };
 
@@ -89,12 +90,12 @@ const UserAccount = () => {
 
     console.log(data);
 
-    navigate("/");
+    navigate('/');
   };
 
   useEffect(() => {
     if (!isAuth) {
-      navigate("/auth/login");
+      navigate('/auth/login');
     }
   }, []);
 
@@ -104,20 +105,20 @@ const UserAccount = () => {
         <Box
           sx={{
             marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
             gap: 2,
           }}
         >
           {isAuth && user.avatarUrl ? (
             <Avatar
-              alt={isAuth ? user.name : ""}
+              alt={isAuth ? user.name : ''}
               src={avatarUrl ? avatarUrl : user.avatarUrl}
               sx={{ width: 120, height: 120 }}
             />
           ) : (
-            <AvatarNoImg name={isAuth ? user.name : ""} />
+            <AvatarNoImg name={isAuth ? user.name : ''} />
           )}
 
           <Typography component="h1" variant="h5">
@@ -137,7 +138,7 @@ const UserAccount = () => {
               </Grid>
               <Grid item xs={6}>
                 <Typography component="h1" variant="h5">
-                  {isAuth ? user.name : "Unregistered"}
+                  {isAuth ? user.name : 'Unregistered'}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
@@ -148,7 +149,7 @@ const UserAccount = () => {
                   Email:
                 </Typography>
                 <Typography component="h1" variant="h5">
-                  {isAuth ? user.email : "Unregistered"}
+                  {isAuth ? user.email : 'Unregistered'}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
