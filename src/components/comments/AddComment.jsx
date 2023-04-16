@@ -1,18 +1,19 @@
-import { useParams } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
+import { useParams } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 
-import Avatar from "@mui/material/Avatar";
-import { Button } from "@mui/material";
+import Avatar from '@mui/material/Avatar';
+import { Button } from '@mui/material';
 
-import Textarea from "@mui/joy/Textarea";
-import Box from "@mui/material/Box";
+import Textarea from '@mui/joy/Textarea';
+import Box from '@mui/material/Box';
 
-import AvatarNoImg from "../AvatarNoImg";
-import { setCommentsUpdated } from "../../redux/comments/slice";
-import axios from "../../redux/settings/axios";
+import AvatarNoImg from '../AvatarNoImg';
+import { setCommentsUpdated } from '../../redux/comments/slice';
+import axios from '../../redux/settings/axios';
 
 const AddComment = () => {
+  const hostAvatarUrl = 'https://bublog-back.onrender.com/';
   const { id } = useParams();
 
   const {
@@ -21,9 +22,9 @@ const AddComment = () => {
     resetField,
     formState: { errors, isValid },
   } = useForm({
-    mode: "onChange",
+    mode: 'onChange',
     defaultValues: {
-      commentText: "",
+      commentText: '',
     },
   });
 
@@ -38,8 +39,8 @@ const AddComment = () => {
       articleId: id,
     };
 
-    await axios.post("/addcomment", fields);
-    resetField("commentText");
+    await axios.post('/addcomment', fields);
+    resetField('commentText');
     dispatch(setCommentsUpdated(!commentsUpdated));
   };
 
@@ -56,8 +57,10 @@ const AddComment = () => {
             <div className="comments__user">
               {user.avatarUrl ? (
                 <Avatar
-                  alt={user.name ? user.name : ""}
-                  src={user.avatarUrl ? user.avatarUrl : ""}
+                  alt={user.name ? user.name : ''}
+                  src={
+                    user.avatarUrl ? `${hostAvatarUrl}${user.avatarUrl}` : ''
+                  }
                   sx={{ width: 32, height: 32 }}
                 />
               ) : (
@@ -73,22 +76,22 @@ const AddComment = () => {
             minRows={3}
             variant="plain"
             error={!!errors.commentText}
-            {...register("commentText", {
-              required: "Field is empty",
+            {...register('commentText', {
+              required: 'Field is empty',
               maxLength: {
                 value: 600,
-                message: "600 letters maximum",
+                message: '600 letters maximum',
               },
             })}
             endDecorator={
               <Box
                 sx={{
-                  display: "flex",
-                  gap: "var(--Textarea-paddingBlock)",
-                  pt: "var(--Textarea-paddingBlock)",
-                  borderTop: "1px solid",
-                  borderColor: "divider",
-                  flex: "auto",
+                  display: 'flex',
+                  gap: 'var(--Textarea-paddingBlock)',
+                  pt: 'var(--Textarea-paddingBlock)',
+                  borderTop: '1px solid',
+                  borderColor: 'divider',
+                  flex: 'auto',
                 }}
               >
                 <Button
@@ -103,7 +106,7 @@ const AddComment = () => {
             }
             sx={{
               minWidth: 200,
-              "--Textarea-focusedThickness": "var(--joy-focus-thickness, 0px)",
+              '--Textarea-focusedThickness': 'var(--joy-focus-thickness, 0px)',
             }}
           />
           {errors.commentText && <p>{errors.commentText.message}</p>}

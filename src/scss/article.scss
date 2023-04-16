@@ -11,7 +11,6 @@
   &__image {
     position: relative;
     @media (max-width: 767.98px) {
-      // border-radius: 12px;
       border-radius: 4px;
       overflow: hidden;
     }
@@ -33,11 +32,6 @@
     color: #999999;
     margin-top: 18px;
     margin-bottom: 18px;
-  }
-
-  // .full-article__content
-
-  &__content {
   }
 
   // .full-article__author
@@ -84,24 +78,12 @@
   // .full-article__text
 
   &__text {
-    font-family: "Source Serif Pro";
+    font-family: 'Source Serif Pro';
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 1.5;
     color: #666666;
-    // display: flex;
     text-align: justify;
-  }
-}
-.article {
-  // .article__author
-
-  &__author {
-  }
-
-  // .article__data
-
-  &__data {
   }
 }

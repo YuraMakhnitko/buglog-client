@@ -3,8 +3,8 @@
 .add-article {
   padding-top: 30px;
   padding-bottom: 30px;
-  // .add-article__header
 
+  // .add-article__header
   &__header {
     display: flex;
     align-items: center;
@@ -38,10 +38,8 @@
     border-radius: 3px;
     margin-bottom: 10px;
     gap: 20px;
-    // &:not(:last-child) {
-    // }
+
     @media (max-width: 767.98px) {
-      // border-radius: 12px;
       border-radius: 4px;
     }
   }

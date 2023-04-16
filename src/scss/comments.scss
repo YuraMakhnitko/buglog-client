@@ -19,33 +19,13 @@
     line-height: 1.2;
     letter-spacing: 1px;
     text-transform: uppercase;
-    // color: #999999;
     color: #000;
-  }
-
-  // .comments__add-comment
-
-  &__add-comment {
-    // padding: 3px 8px;
-    // border: 1px solid #000;
-    // border-radius: 3px;
-    // transition: all 0.2s ease 0s;
-    // &:hover {
-    //   border: 1px solid rgba(0, 0, 0, 0.2);
-    //   box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.09);
-    //   color: #fff;
-    //   background-color: blue;
-    // }
-    @media (max-width: 767.98px) {
-      // border-radius: 6px;
-    }
   }
 
   // .comments__items
   &__items {
     display: flex;
     flex-direction: column;
-    // gap: 10px;
   }
 
   // .comments__item
@@ -57,10 +37,8 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 3px;
     margin-bottom: 10px;
-    // &:not(:last-child) {
-    // }
+
     @media (max-width: 767.98px) {
-      // border-radius: 12px;
       border-radius: 4px;
     }
   }
@@ -135,8 +113,3 @@
     }
   }
 }
-
-// .css-1n7zltw-MuiButtonBase-root-MuiButton-root {
-//   margin-top: 0px;
-//   margin-bottom: 0px;
-// }

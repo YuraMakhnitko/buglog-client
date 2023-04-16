@@ -1,18 +1,22 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "../redux/settings/axios";
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from '../redux/settings/axios';
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchRemoveArticle } from "../redux/filter/athyncActions";
+import { fetchRemoveArticle } from '../redux/filter/athyncActions';
 
-import { useFormatDate } from "../hooks/useFormatDate";
+import { useFormatDate } from '../hooks/useFormatDate';
 
-import EditBlock from "../components/EditBlock";
-import Comments from "../components/comments/index";
-import ArticleSkeleton from "../components/skeletons/ArticleSkeleton";
+import EditBlock from '../components/EditBlock';
+import Comments from '../components/comments/index';
+import ArticleSkeleton from '../components/skeletons/ArticleSkeleton';
+import Avatar from '@mui/material/Avatar';
+import AvatarNoImg from '../components/AvatarNoImg';
 
 const Article = () => {
+  const hostImgUrl = 'https://bublog-back.onrender.com/';
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -24,11 +28,11 @@ const Article = () => {
   const [article, setArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
-  const [categoryName, setCategoryName] = useState("");
+  const [categoryName, setCategoryName] = useState('');
 
   const { month, year, day, time } = useFormatDate(article.createdAt);
 
-  console.log(isLoading, "isLoading");
+  console.log(isLoading, 'isLoading');
 
   useEffect(() => {
     axios
@@ -43,30 +47,30 @@ const Article = () => {
       })
       .catch((error) => {
         console.warn(error);
-        alert("Error when gettin article");
+        alert('Error when gettin article');
       });
   }, [commentsUpdated]);
 
   const onClickRemove = () => {
     dispatch(fetchRemoveArticle(article._id));
-    navigate("/");
+    navigate('/');
   };
 
-  console.log(article, "article");
+  console.log(article, 'article');
 
   return !isLoading ? (
     <>
       <div className="full-article">
         <div className="full-article__image">
           <div className="full-article__image-ibg">
-            <img src={article.articleImgUrl} alt="article" />
+            <img src={`${hostImgUrl}${article.articleImgUrl}`} alt="article" />
           </div>
 
           {!isLoading && isAuth && user._id === article.user._id ? (
             <EditBlock
               onClickAction={onClickRemove}
               searchId={article._id}
-              objType={"article"}
+              objType={'article'}
             />
           ) : null}
         </div>
@@ -74,14 +78,18 @@ const Article = () => {
         <div className="full-article__content">
           <h2 className="full-article__title">{article.title}</h2>
           <div className="full-article__add-info">
-            <img
-              src={isLoading ? "" : article.user.avatarUrl}
-              alt="avatar"
-              className="comments__avatar"
-            />
+            {article.user.avatarUrl ? (
+              <Avatar
+                alt={article.user.name}
+                src={`${hostImgUrl}${article.user.avatarUrl}`}
+                sx={{ width: 32, height: 32 }}
+              />
+            ) : (
+              <AvatarNoImg name={article.user.name} />
+            )}
             <div>
               <p className="full-article__author">
-                By {isLoading ? "" : article.user.name}
+                By {isLoading ? '' : article.user.name}
               </p>
               <p className="article__data">{`${year} ${month} ${day}, ${time}`}</p>
             </div>

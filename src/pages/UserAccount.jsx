@@ -56,7 +56,6 @@ const theme = createTheme({
 const UserAccount = () => {
   const hostAvatarUrl = 'https://bublog-back.onrender.com/';
   const hostUrl = 'src';
-  // const hostAvatarUrl = 'http://localhost:8000/';
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -66,11 +65,7 @@ const UserAccount = () => {
   const inputFileRef = useRef(null);
   console.log(imgType, 'imgType');
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm();
+  const { handleSubmit } = useForm();
 
   console.log(avatarUrl, 'avatarUrl');
 
@@ -93,14 +88,12 @@ const UserAccount = () => {
 
   const onSubmit = async () => {
     const fields = {
-      avatarUrl: `${hostAvatarUrl}${avatarUrl}`,
+      avatarUrl: `${avatarUrl}`,
       imgAvatarUrl: `${avatarUrl}`,
       imgType: imgType,
     };
     const data = await axios.patch(`/account/${user._id}`, fields);
     dispatch(fetchAuthMe());
-
-    console.log(data);
 
     navigate('/');
   };
@@ -126,7 +119,11 @@ const UserAccount = () => {
           {isAuth && user.avatarUrl ? (
             <Avatar
               alt={isAuth ? user.name : ''}
-              src={avatarUrl ? avatarUrl : user.avatarUrl}
+              src={
+                avatarUrl
+                  ? `${hostAvatarUrl}${avatarUrl}`
+                  : `${hostAvatarUrl}${user.avatarUrl}`
+              }
               sx={{ width: 120, height: 120 }}
             />
           ) : (
@@ -194,7 +191,6 @@ const UserAccount = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              // onClick={onSubmit}
             >
               Submit
             </Button>

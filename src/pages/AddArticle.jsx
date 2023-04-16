@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from '../redux/settings/axios';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -8,12 +9,9 @@ import Textarea from '@mui/joy/Textarea';
 import Box from '@mui/material/Box';
 
 import SelectCategory from '../components/SelectCategory';
-import axios from '../redux/settings/axios';
 
 const AddArticle = () => {
-  // const hostUrl = 'http://localhost:8000/src';
   const hostUrl = 'src';
-  // const hostArticleImgUrl = 'http://localhost:8000/';
   const hostArticleImgUrl = 'https://bublog-back.onrender.com/';
   const categoryText = 'Choose Category';
   const navigate = useNavigate();
@@ -21,11 +19,10 @@ const AddArticle = () => {
   const { id } = useParams();
   const isEditing = Boolean(id);
   const { isAuth, user } = useSelector((state) => state.auth);
-  const { categories, articles } = useSelector((state) => state.filter);
+  const { categories } = useSelector((state) => state.filter);
 
   const [articleImgUrl, setArticleImgUrl] = useState('');
   const [imgUrlOnServer, setImgUrlOnServer] = useState('');
-  // const [imgArticleUrl, setImgArticleUrl] = useState('');
   const [imgType, setImgType] = useState('');
   const [title, setTitle] = useState('');
   const [articleText, setArticleText] = useState();
@@ -51,13 +48,9 @@ const AddArticle = () => {
     }
   }, []);
 
-  console.log(articleImgUrl, 'articleImageUrl');
-  console.log(articleText, 'articleText');
-
   const {
     register,
     handleSubmit,
-    resetField,
     formState: { errors, isValid },
   } = useForm({});
 
@@ -79,7 +72,7 @@ const AddArticle = () => {
   const createNewArticle = async (formData) => {
     const fields = {
       ...formData,
-      articleImgUrl: `${hostArticleImgUrl}${articleImgUrl}`,
+      articleImgUrl: `${articleImgUrl}`,
       imgArticleUrl: `${articleImgUrl}`,
       imgType: imgType,
     };

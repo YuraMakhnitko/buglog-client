@@ -1,24 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import { useDispatch, useSelector } from "react-redux";
-import axios from "../redux/settings/axios";
+import { useDispatch, useSelector } from 'react-redux';
+import axios from '../redux/settings/axios';
 
-import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import Skeleton from "@mui/material/Skeleton";
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import Skeleton from '@mui/material/Skeleton';
+import Avatar from '@mui/material/Avatar';
+import AvatarNoImg from '../components/AvatarNoImg';
 
-import EditBlock from "./EditBlock";
+import EditBlock from './EditBlock';
 
-import { useFormatDate } from "../hooks/useFormatDate";
+import { useFormatDate } from '../hooks/useFormatDate';
 
 import {
   fetchCategory,
   fetchRemoveArticle,
-} from "../redux/filter/athyncActions";
+} from '../redux/filter/athyncActions';
 
 const ArticleCard = ({ article }) => {
+  const hostImgUrl = 'https://bublog-back.onrender.com/';
+
   const dispatch = useDispatch();
   const { isAuth, user } = useSelector((state) => state.auth);
   const { month, year, day, time } = useFormatDate(article.createdAt);
@@ -68,14 +72,17 @@ const ArticleCard = ({ article }) => {
                   to={`/${categoryId}/${article._id}`}
                   className="article__title-link"
                 >
-                  <img src={article.articleImgUrl} alt="img" />
+                  <img
+                    src={`${hostImgUrl}${article.articleImgUrl}`}
+                    alt="img"
+                  />
                 </Link>
               </div>
               {isAuth && user._id === article.user._id ? (
                 <EditBlock
                   searchId={article._id}
                   onClickAction={onClickRemove}
-                  objType={"article"}
+                  objType={'article'}
                 />
               ) : null}
             </div>
@@ -98,11 +105,15 @@ const ArticleCard = ({ article }) => {
           </div>
           <div className="article__bottom article__bottom_category">
             <div className="article__user-info">
-              <img
-                src={article.user.avatarUrl}
-                alt="avatar"
-                className="comments__avatar"
-              />
+              {article.user.avatarUrl ? (
+                <Avatar
+                  alt={article.user.name}
+                  src={`${hostImgUrl}${article.user.avatarUrl}`}
+                  sx={{ width: 32, height: 32 }}
+                />
+              ) : (
+                <AvatarNoImg name={article.user.name} />
+              )}
               <div className="article__user-data">
                 <p className="article__author article__author_category">
                   By {article.user.name}
@@ -121,7 +132,7 @@ const ArticleCard = ({ article }) => {
                 className="article__comments"
               >
                 <QuestionAnswerIcon color="primary" />
-                <span>{commentsAmount ? commentsAmount : ""}</span>
+                <span>{commentsAmount ? commentsAmount : ''}</span>
               </Link>
             </div>
           </div>

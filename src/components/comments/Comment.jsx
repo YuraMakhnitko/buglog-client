@@ -1,16 +1,18 @@
-import { useDispatch, useSelector } from "react-redux";
-import Avatar from "@mui/material/Avatar";
-import AvatarNoImg from "../AvatarNoImg";
+import { useDispatch, useSelector } from 'react-redux';
+import Avatar from '@mui/material/Avatar';
+import AvatarNoImg from '../AvatarNoImg';
 
-import { setCommentsUpdated } from "../../redux/comments/slice";
-import { fetchRemoveComment } from "../../redux/comments/athyncActions";
+import { setCommentsUpdated } from '../../redux/comments/slice';
+import { fetchRemoveComment } from '../../redux/comments/athyncActions';
 
-import EditBlock from "../EditBlock";
-import EditComment from "./EditComment";
+import EditBlock from '../EditBlock';
+import EditComment from './EditComment';
 
-import { useFormatDate } from "../../hooks/useFormatDate";
+import { useFormatDate } from '../../hooks/useFormatDate';
 
 const Comment = ({ comment }) => {
+  const hostAvatarUrl = 'https://bublog-back.onrender.com/';
+
   const dispatch = useDispatch();
   const { month, year, day, time } = useFormatDate(comment.createdAt);
   const { isAuth, user } = useSelector((state) => state.auth);
@@ -22,6 +24,8 @@ const Comment = ({ comment }) => {
     dispatch(setCommentsUpdated(!commentsUpdated));
   };
 
+  console.log(comment, 'comment');
+
   return (
     <div className="comments__item" key={comment._id}>
       <div className="comments__info">
@@ -29,7 +33,7 @@ const Comment = ({ comment }) => {
           {comment.user.avatarUrl ? (
             <Avatar
               alt={comment.user.name}
-              src={comment.user.avatarUrl}
+              src={`${hostAvatarUrl}${comment.user.avatarUrl}`}
               sx={{ width: 32, height: 32 }}
             />
           ) : (
@@ -44,7 +48,7 @@ const Comment = ({ comment }) => {
           <EditBlock
             searchId={comment._id}
             onClickAction={onClickAction}
-            objType={"comment"}
+            objType={'comment'}
             className="edit-block_comments"
           />
         ) : null}

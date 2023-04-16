@@ -1,17 +1,17 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-import ArticleCard from "../components/ArticleCard";
+import ArticleCard from '../components/ArticleCard';
 
-import Categories from "../components/Categories";
+import Categories from '../components/Categories';
 
-import ArticlesSkeleton from "../components/skeletons/ArticlesSkeleton";
+import ArticlesSkeleton from '../components/skeletons/ArticlesSkeleton';
 
-import { fetchCategory } from "../redux/filter/athyncActions";
-import { useScreenSize } from "../hooks/useScreenSize";
+import { fetchCategory } from '../redux/filter/athyncActions';
+import { useScreenSize } from '../hooks/useScreenSize';
 
 const Articles = () => {
   const navigate = useNavigate();
@@ -36,17 +36,12 @@ const Articles = () => {
     <section className="blog__posts posts">
       {screenSize.width > 767.98 ? (
         <p className="posts__title">
-          {categoryTitle} {articlePath === "all articles" ? "" : "POSTS"}
+          {categoryTitle} {articlePath === 'all articles' ? '' : 'POSTS'}
         </p>
       ) : (
         <Categories />
       )}
-      {/* <Categories /> */}
-      {/* //{" "} */}
-      {/* <p className="posts__title">
-        {categoryTitle} {articlePath === "all articles" ? "" : "POSTS"}
-        {" "}
-      </p> */}
+
       <div className="posts__content">
         {articles.map((article) => {
           {
