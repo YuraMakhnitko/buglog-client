@@ -54,13 +54,17 @@ const theme = createTheme({
 });
 
 const UserAccount = () => {
-  const hostUrl = 'https://bublog-back.onrender.com/src';
-  // const hostUrl = 'https://glowing-sunflower-09cd1a.netlify.app/src';
+  const hostAvatarUrl = 'https://bublog-back.onrender.com/';
+  const hostUrl = 'src';
+  // const hostAvatarUrl = 'http://localhost:8000/';
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [avatarUrl, setAvatarUrl] = useState('');
+  const [imgType, setImgType] = useState('');
   const { user, isAuth } = useSelector((state) => state.auth);
   const inputFileRef = useRef(null);
+  console.log(imgType, 'imgType');
 
   const {
     register,
@@ -74,8 +78,12 @@ const UserAccount = () => {
     try {
       const formData = new FormData();
       const file = event.target.files[0];
+      setImgType(file.type);
       formData.append('image', file);
-      const { data } = await axios.post('/upload/avatars', formData);
+      const { data } = await axios.post(
+        `/upload/avatars/${user._id}`,
+        formData
+      );
       setAvatarUrl(`${hostUrl}${data.url}`);
     } catch (error) {
       console.warn(error);
@@ -84,7 +92,11 @@ const UserAccount = () => {
   };
 
   const onSubmit = async () => {
-    const fields = { avatarUrl: avatarUrl };
+    const fields = {
+      avatarUrl: `${hostAvatarUrl}${avatarUrl}`,
+      imgAvatarUrl: `${avatarUrl}`,
+      imgType: imgType,
+    };
     const data = await axios.patch(`/account/${user._id}`, fields);
     dispatch(fetchAuthMe());
 

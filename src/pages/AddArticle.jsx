@@ -11,8 +11,10 @@ import SelectCategory from '../components/SelectCategory';
 import axios from '../redux/settings/axios';
 
 const AddArticle = () => {
-  const hostUrl = 'https://bublog-back.onrender.com/src';
-  // const hostUrl = 'https://glowing-sunflower-09cd1a.netlify.app/src';
+  // const hostUrl = 'http://localhost:8000/src';
+  const hostUrl = 'src';
+  // const hostArticleImgUrl = 'http://localhost:8000/';
+  const hostArticleImgUrl = 'https://bublog-back.onrender.com/';
   const categoryText = 'Choose Category';
   const navigate = useNavigate();
 
@@ -22,8 +24,12 @@ const AddArticle = () => {
   const { categories, articles } = useSelector((state) => state.filter);
 
   const [articleImgUrl, setArticleImgUrl] = useState('');
+  const [imgUrlOnServer, setImgUrlOnServer] = useState('');
+  // const [imgArticleUrl, setImgArticleUrl] = useState('');
+  const [imgType, setImgType] = useState('');
   const [title, setTitle] = useState('');
   const [articleText, setArticleText] = useState();
+  console.log(imgUrlOnServer);
 
   const [categorySelected, setCategorySelected] = useState({
     title: categoryText,
@@ -36,6 +42,7 @@ const AddArticle = () => {
         setTitle(data.title);
         setArticleText(data.articleText);
         setArticleImgUrl(data.articleImgUrl);
+        setImgUrlOnServer(data.articleImgUrl);
         const findCategory = categories.find(
           (item) => item.categoryId === data.category
         );
@@ -58,9 +65,11 @@ const AddArticle = () => {
     try {
       const formData = new FormData();
       const file = event.target.files[0];
+      setImgType(file.type);
       formData.append('image', file);
       const { data } = await axios.post('/upload/articles', formData);
       setArticleImgUrl(`${hostUrl}${data.url}`);
+      setImgUrlOnServer(`${hostArticleImgUrl}${hostUrl}${data.url}`);
     } catch (error) {
       console.warn(error);
       alert('Error when uploading file');
@@ -70,7 +79,9 @@ const AddArticle = () => {
   const createNewArticle = async (formData) => {
     const fields = {
       ...formData,
-      articleImgUrl: articleImgUrl,
+      articleImgUrl: `${hostArticleImgUrl}${articleImgUrl}`,
+      imgArticleUrl: `${articleImgUrl}`,
+      imgType: imgType,
     };
 
     try {
@@ -118,7 +129,7 @@ const AddArticle = () => {
                   </div>
                 </div>
               </div>
-              {articleImgUrl && <img src={articleImgUrl} />}
+              {articleImgUrl && <img src={`${imgUrlOnServer}`} />}
 
               {articleImgUrl ? (
                 <Button
