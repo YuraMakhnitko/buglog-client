@@ -3,7 +3,7 @@ import axios from 'axios';
 // const instance = axios.create({ baseURL: 'https://bublog-back.onrender.com/' });
 // const instance = axios.create({ baseURL: 'http://localhost:8000/' });
 const instance = axios.create({
-  baseURL: 'https://glowing-sunflower-09cd1a.netlify.app/',
+  baseURL: 'https://bublog-back.onrender.com/',
 });
 
 instance.interceptors.request.use((config) => {
