@@ -107,7 +107,6 @@ const UserMenu = () => {
         <MoreIcon />
       </IconButton>
       <StyledMenu
-        // id="demo-customized-menu"
         MenuListProps={{
           'aria-labelledby': 'demo-customized-button',
         }}
@@ -126,7 +125,6 @@ const UserMenu = () => {
           <Link to="/auth/register">
             <MenuItem onClick={handleClose} disableRipple>
               <BiRegistered className="MuiSvgIcon-root" />
-              {/* <HiOutlineDocumentAdd className="MuiSvgIcon-root" /> */}
               Sing Up!
             </MenuItem>
           </Link>

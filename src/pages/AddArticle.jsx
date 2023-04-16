@@ -3,6 +3,8 @@ import axios from '../redux/settings/axios';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
+import Avatar from '@mui/material/Avatar';
+import AvatarNoImg from '../components/AvatarNoImg';
 
 import { Button } from '@mui/material';
 import Textarea from '@mui/joy/Textarea';
@@ -38,8 +40,8 @@ const AddArticle = () => {
       axios.get(`/articles/${id}`).then(({ data }) => {
         setTitle(data.title);
         setArticleText(data.articleText);
-        setArticleImgUrl(data.articleImgUrl);
-        setImgUrlOnServer(data.articleImgUrl);
+        setArticleImgUrl(`${data.articleImgUrl}`);
+        setImgUrlOnServer(`${hostArticleImgUrl}${data.articleImgUrl}`);
         const findCategory = categories.find(
           (item) => item.categoryId === data.category
         );
@@ -112,11 +114,15 @@ const AddArticle = () => {
             <div className="add-article__item">
               <div className="add-article__info">
                 <div className="add-article__user">
-                  <img
-                    src={user.avatarUrl}
-                    alt="avatar"
-                    className="add-article__avatar"
-                  />
+                  {user.avatarUrl ? (
+                    <Avatar
+                      alt={user.name}
+                      src={`${hostArticleImgUrl}${user.avatarUrl}`}
+                      sx={{ width: 32, height: 32 }}
+                    />
+                  ) : (
+                    <AvatarNoImg name={user.name} />
+                  )}
                   <div className="add-article__user-info">
                     <p className="add-article__user-name">{user.name}</p>
                   </div>

@@ -60,10 +60,11 @@ const UserAccount = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [avatarUrl, setAvatarUrl] = useState('');
+  const [dataImgUrl, setDataImgUrl] = useState('');
   const [imgType, setImgType] = useState('');
   const { user, isAuth } = useSelector((state) => state.auth);
   const inputFileRef = useRef(null);
-  console.log(imgType, 'imgType');
+  console.log(dataImgUrl, 'dataImgUrl');
 
   const { handleSubmit } = useForm();
 
@@ -80,6 +81,7 @@ const UserAccount = () => {
         formData
       );
       setAvatarUrl(`${hostUrl}${data.url}`);
+      setDataImgUrl(data.url);
     } catch (error) {
       console.warn(error);
       alert('Error when uploading file');
