@@ -26,7 +26,7 @@ const Home = () => {
     dispatch(setIsLoading(true));
     dispatch(setCategory('Latest'));
     dispatch(fetchCategory({ categoryId: 1 }));
-  }, []);
+  }, [dispatch]);
 
   return !isLoading ? (
     <>
@@ -46,9 +46,7 @@ const Home = () => {
         )}
         <div className="posts__content">
           {articles.map((article) => {
-            {
-              return <ArticleCard article={article} key={article._id} />;
-            }
+            return <ArticleCard article={article} key={article._id} />;
           })}
         </div>
       </section>

@@ -49,7 +49,7 @@ const Article = () => {
         console.warn(error);
         alert('Error when gettin article');
       });
-  }, [commentsUpdated]);
+  }, [commentsUpdated, categories, id]);
 
   const onClickRemove = () => {
     dispatch(fetchRemoveArticle(article._id));

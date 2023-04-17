@@ -26,11 +26,11 @@ const Articles = () => {
 
   useEffect(() => {
     dispatch(fetchCategory({ categoryId }));
-  }, [categoryId]);
+  }, [categoryId, dispatch]);
 
   useEffect(() => {
     navigate(`/${categoryId}`);
-  }, [articles.length]);
+  }, [articles.length, categoryId, navigate]);
 
   return !isLoading ? (
     <section className="blog__posts posts">
@@ -44,9 +44,7 @@ const Articles = () => {
 
       <div className="posts__content">
         {articles.map((article) => {
-          {
-            return <ArticleCard article={article} key={article._id} />;
-          }
+          return <ArticleCard article={article} key={article._id} />;
         })}
       </div>
     </section>

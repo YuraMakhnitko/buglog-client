@@ -59,88 +59,84 @@ const ArticleCard = ({ article }) => {
       setIsLoading(false);
     };
     getCommentsAmount();
-  }, []);
+  }, [article._id]);
+  console.log(article);
 
-  {
-    return !isLoading ? (
-      <div className="article article_category" key={article._id}>
-        <div className="article__content">
-          <div className="article__top-box">
-            <div className="article__box-image">
-              <div className="article__image-ibg">
-                <Link
-                  to={`/${categoryId}/${article._id}`}
-                  className="article__title-link"
-                >
-                  <img
-                    src={`${hostImgUrl}${article.articleImgUrl}`}
-                    alt="img"
-                  />
-                </Link>
-              </div>
-              {isAuth && user._id === article.user._id ? (
-                <EditBlock
-                  searchId={article._id}
-                  onClickAction={onClickRemove}
-                  objType={'article'}
-                />
-              ) : null}
-            </div>
-            <div className="article__top-content">
-              <p className="article__category-title">{categoryName.title}</p>
+  return !isLoading ? (
+    <div className="article article_category" key={article._id}>
+      <div className="article__content">
+        <div className="article__top-box">
+          <div className="article__box-image">
+            <div className="article__image-ibg">
               <Link
-                to={`/${articlePath}/${article.id}`}
+                to={`/${categoryId}/${article._id}`}
                 className="article__title-link"
               >
-                <h2 className="article__title article__title_category">
-                  {article.title}
-                </h2>
+                <img src={`${hostImgUrl}${article.articleImgUrl}`} alt="img" />
               </Link>
-              <p className="article__text article__text_category">
-                Enim omittam qui id, ex quo atqui dictas complectitur. Nec ad
-                timeam accusata, hinc justo falli id eum, ferri novum molestie
-                eos cu.
+            </div>
+            {isAuth && user._id === article.user._id ? (
+              <EditBlock
+                searchId={article._id}
+                onClickAction={onClickRemove}
+                objType={'article'}
+              />
+            ) : null}
+          </div>
+          <div className="article__top-content">
+            <p className="article__category-title">{categoryName.title}</p>
+            <Link
+              to={`/${articlePath}/${article.id}`}
+              className="article__title-link"
+            >
+              <h2 className="article__title article__title_category">
+                {article.title}
+              </h2>
+            </Link>
+            <p className="article__text article__text_category">
+              Enim omittam qui id, ex quo atqui dictas complectitur. Nec ad
+              timeam accusata, hinc justo falli id eum, ferri novum molestie eos
+              cu.
+            </p>
+          </div>
+        </div>
+        <div className="article__bottom article__bottom_category">
+          <div className="article__user-info">
+            {article.user.avatarUrl ? (
+              <Avatar
+                alt={article.user.name}
+                src={`${hostImgUrl}${article.user.avatarUrl}`}
+                sx={{ width: 32, height: 32 }}
+              />
+            ) : (
+              <AvatarNoImg name={article.user.name} />
+            )}
+            <div className="article__user-data">
+              <p className="article__author article__author_category">
+                By {article.user.name}
               </p>
+              <p className="article__data">{`${year} ${month} ${day}, ${time}`}</p>
             </div>
           </div>
-          <div className="article__bottom article__bottom_category">
-            <div className="article__user-info">
-              {article.user.avatarUrl ? (
-                <Avatar
-                  alt={article.user.name}
-                  src={`${hostImgUrl}${article.user.avatarUrl}`}
-                  sx={{ width: 32, height: 32 }}
-                />
-              ) : (
-                <AvatarNoImg name={article.user.name} />
-              )}
-              <div className="article__user-data">
-                <p className="article__author article__author_category">
-                  By {article.user.name}
-                </p>
-                <p className="article__data">{`${year} ${month} ${day}, ${time}`}</p>
-              </div>
-            </div>
 
-            <div className="article__views-and-comments article__views-and-comments_category">
-              <div className="article__views">
-                <RemoveRedEyeIcon color="primary" />
-                {article.vievCount > 0 && <span>{article.vievCount}</span>}
-              </div>
-              <Link
-                to={`/${articlePath}/${article._id}`}
-                className="article__comments"
-              >
-                <QuestionAnswerIcon color="primary" />
-                <span>{commentsAmount ? commentsAmount : ''}</span>
-              </Link>
+          <div className="article__views-and-comments article__views-and-comments_category">
+            <div className="article__views">
+              <RemoveRedEyeIcon color="primary" />
+              {article.vievCount > 0 && <span>{article.vievCount}</span>}
             </div>
+            <Link
+              to={`/${articlePath}/${article._id}`}
+              className="article__comments"
+            >
+              <QuestionAnswerIcon color="primary" />
+              <span>{commentsAmount ? commentsAmount : ''}</span>
+            </Link>
           </div>
         </div>
       </div>
-    ) : (
-      <Skeleton variant="rounded" height={366} />
-    );
-  }
+    </div>
+  ) : (
+    <Skeleton variant="rounded" height={366} />
+  );
 };
 export default ArticleCard;
