@@ -86,7 +86,7 @@ const ArticleCard = ({ article }) => {
           <div className="article__top-content">
             <p className="article__category-title">{categoryName.title}</p>
             <Link
-              to={`/${articlePath}/${article.id}`}
+              to={`/${categoryId}/${article._id}`}
               className="article__title-link"
             >
               <h2 className="article__title article__title_category">
