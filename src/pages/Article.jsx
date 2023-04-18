@@ -62,9 +62,14 @@ const Article = () => {
     <>
       <div className="full-article">
         <div className="full-article__image">
-          <div className="full-article__image-ibg">
-            <img src={`${hostImgUrl}${article.articleImgUrl}`} alt="article" />
-          </div>
+          {article.articleImgUrl && (
+            <div className="full-article__image-ibg">
+              <img
+                src={`${hostImgUrl}${article.articleImgUrl}`}
+                alt="article"
+              />
+            </div>
+          )}
 
           {!isLoading && isAuth && user._id === article.user._id ? (
             <EditBlock

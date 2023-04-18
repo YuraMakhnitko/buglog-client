@@ -53,7 +53,9 @@ const Slide = ({ slide }) => {
               to={`/${slide.category}/${slide._id}`}
               className="article__title-link"
             >
-              <img src={`${hostImgUrl}${slide.articleImgUrl}`} alt="img" />
+              {slide.articleImgUrl && (
+                <img src={`${hostImgUrl}${slide.articleImgUrl}`} alt="img" />
+              )}
             </Link>
           </div>
         </div>
