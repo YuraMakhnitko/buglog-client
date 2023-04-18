@@ -1,26 +1,28 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 
-import LibreFranklin from '../scss/common.scss';
-import { Link, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import LibreFranklin from "../scss/common.scss";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import imageCompression from "browser-image-compression";
 
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import { useForm } from 'react-hook-form';
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
 
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import IconButton from '@mui/material/IconButton';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import Divider from '@mui/material/Divider';
-import axios from '../redux/settings/axios';
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import { useForm } from "react-hook-form";
 
-import AvatarNoImg from '../components/AvatarNoImg';
-import { fetchAuthMe } from '../redux/auth/athyncActions';
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import IconButton from "@mui/material/IconButton";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import Divider from "@mui/material/Divider";
+import axios from "../redux/settings/axios";
+
+import AvatarNoImg from "../components/AvatarNoImg";
+import { fetchAuthMe } from "../redux/auth/athyncActions";
 
 function Copyright(props) {
   return (
@@ -30,52 +32,59 @@ function Copyright(props) {
       align="center"
       {...props}
     >
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
         Your Website
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
 
 const theme = createTheme({
   typography: {
-    fontFamily: 'Libre Franklin, Arial',
+    fontFamily: "Libre Franklin, Arial",
   },
   overrides: {
     MuiCssBaseline: {
-      '@global': {
-        '@font-face': [LibreFranklin],
+      "@global": {
+        "@font-face": [LibreFranklin],
       },
     },
   },
 });
 
 const UserAccount = () => {
-  const hostAvatarUrl = 'https://bublog-back.onrender.com/';
-  const hostUrl = 'src';
+  const hostAvatarUrl = "https://bublog-back.onrender.com/";
+  const hostUrl = "src";
+
+  const options = {
+    maxSizeMB: 0.05,
+    maxWidthOrHeight: 1920,
+    useWebWorker: true,
+  };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [avatarUrl, setAvatarUrl] = useState('');
-  const [dataImgUrl, setDataImgUrl] = useState('');
-  const [imgType, setImgType] = useState('');
+  const [avatarUrl, setAvatarUrl] = useState("");
+  const [dataImgUrl, setDataImgUrl] = useState("");
+  const [imgType, setImgType] = useState("");
   const { user, isAuth } = useSelector((state) => state.auth);
   const inputFileRef = useRef(null);
-  console.log(dataImgUrl, 'dataImgUrl');
+  console.log(dataImgUrl, "dataImgUrl");
 
   const { handleSubmit } = useForm();
 
-  console.log(avatarUrl, 'avatarUrl');
+  console.log(avatarUrl, "avatarUrl");
 
   const handleChangeFile = async (event) => {
     try {
       const formData = new FormData();
-      const file = event.target.files[0];
+      const fileToCompress = event.target.files[0];
       setImgType(file.type);
-      formData.append('image', file);
+      const file = await imageCompression(fileToCompress, options);
+      formData.append("image", file, file.name);
       const { data } = await axios.post(
         `/upload/avatars/${user._id}`,
         formData
@@ -84,7 +93,7 @@ const UserAccount = () => {
       setDataImgUrl(data.url);
     } catch (error) {
       console.warn(error);
-      alert('Error when uploading file');
+      alert("Error when uploading file");
     }
   };
 
@@ -97,12 +106,12 @@ const UserAccount = () => {
     const data = await axios.patch(`/account/${user._id}`, fields);
     dispatch(fetchAuthMe());
 
-    navigate('/');
+    navigate("/");
   };
 
   useEffect(() => {
     if (!isAuth) {
-      navigate('/auth/login');
+      navigate("/auth/login");
     }
   }, []);
 
@@ -112,15 +121,15 @@ const UserAccount = () => {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
             gap: 2,
           }}
         >
           {isAuth && user.avatarUrl ? (
             <Avatar
-              alt={isAuth ? user.name : ''}
+              alt={isAuth ? user.name : ""}
               src={
                 avatarUrl
                   ? `${hostAvatarUrl}${avatarUrl}`
@@ -129,7 +138,7 @@ const UserAccount = () => {
               sx={{ width: 120, height: 120 }}
             />
           ) : (
-            <AvatarNoImg name={isAuth ? user.name : ''} />
+            <AvatarNoImg name={isAuth ? user.name : ""} />
           )}
 
           <Typography component="h1" variant="h5">
@@ -149,7 +158,7 @@ const UserAccount = () => {
               </Grid>
               <Grid item xs={6}>
                 <Typography component="h1" variant="h5">
-                  {isAuth ? user.name : 'Unregistered'}
+                  {isAuth ? user.name : "Unregistered"}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
@@ -160,7 +169,7 @@ const UserAccount = () => {
                   Email:
                 </Typography>
                 <Typography component="h1" variant="h5">
-                  {isAuth ? user.email : 'Unregistered'}
+                  {isAuth ? user.email : "Unregistered"}
                 </Typography>
               </Grid>
               <Grid item xs={12}>

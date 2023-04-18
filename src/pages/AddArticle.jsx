@@ -1,21 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import axios from '../redux/settings/axios';
-import { useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
-import Avatar from '@mui/material/Avatar';
-import AvatarNoImg from '../components/AvatarNoImg';
+import React, { useEffect, useState } from "react";
+import axios from "../redux/settings/axios";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { Button } from '@mui/material';
-import Textarea from '@mui/joy/Textarea';
-import Box from '@mui/material/Box';
+import imageCompression from "browser-image-compression";
 
-import SelectCategory from '../components/SelectCategory';
+import { useForm } from "react-hook-form";
+import Avatar from "@mui/material/Avatar";
+import AvatarNoImg from "../components/AvatarNoImg";
+
+import { Button } from "@mui/material";
+import Textarea from "@mui/joy/Textarea";
+import Box from "@mui/material/Box";
+
+import SelectCategory from "../components/SelectCategory";
 
 const AddArticle = () => {
-  const hostUrl = 'src';
-  const hostArticleImgUrl = 'https://bublog-back.onrender.com/';
-  const categoryText = 'Choose Category';
+  const options = {
+    maxSizeMB: 0.05,
+    maxWidthOrHeight: 1920,
+    useWebWorker: true,
+  };
+  const hostUrl = "src";
+  const hostArticleImgUrl = "https://bublog-back.onrender.com/";
+  const categoryText = "Choose Category";
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -23,16 +31,16 @@ const AddArticle = () => {
   const { isAuth, user } = useSelector((state) => state.auth);
   const { categories } = useSelector((state) => state.filter);
 
-  const [articleImgUrl, setArticleImgUrl] = useState('');
-  const [imgUrlOnServer, setImgUrlOnServer] = useState('');
-  const [imgType, setImgType] = useState('');
-  const [title, setTitle] = useState('');
+  const [articleImgUrl, setArticleImgUrl] = useState("");
+  const [imgUrlOnServer, setImgUrlOnServer] = useState("");
+  const [imgType, setImgType] = useState("");
+  const [title, setTitle] = useState("");
   const [articleText, setArticleText] = useState();
   console.log(imgUrlOnServer);
 
   const [categorySelected, setCategorySelected] = useState({
     title: categoryText,
-    categoryId: '',
+    categoryId: "",
   });
 
   useEffect(() => {
@@ -59,15 +67,17 @@ const AddArticle = () => {
   const handleAddImage = async (event) => {
     try {
       const formData = new FormData();
-      const file = event.target.files[0];
-      setImgType(file.type);
-      formData.append('image', file);
-      const { data } = await axios.post('/upload/articles', formData);
+      const fileToCompress = event.target.files[0];
+      setImgType(fileToCompress.type);
+      const file = await imageCompression(fileToCompress, options);
+      console.log(file);
+      formData.append("image", file, file.name);
+      const { data } = await axios.post("/upload/articles", formData);
       setArticleImgUrl(`${hostUrl}${data.url}`);
       setImgUrlOnServer(`${hostArticleImgUrl}${hostUrl}${data.url}`);
     } catch (error) {
       console.warn(error);
-      alert('Error when uploading file');
+      alert("Error when uploading file");
     }
   };
 
@@ -82,7 +92,7 @@ const AddArticle = () => {
     try {
       const { data } = isEditing
         ? await axios.patch(`/articles/${id}`, fields)
-        : await axios.post('/addarticle', fields);
+        : await axios.post("/addarticle", fields);
 
       const _id = isEditing ? id : data._id;
       const category = isEditing ? categorySelected.categoryId : data.category;
@@ -90,12 +100,12 @@ const AddArticle = () => {
       navigate(`/${category}/${_id}`);
     } catch (error) {
       console.warn(error);
-      alert('Error when creating article');
+      alert("Error when creating article");
     }
   };
 
   const onClickDeletImage = () => {
-    setArticleImgUrl('');
+    setArticleImgUrl("");
   };
 
   return (
@@ -159,8 +169,8 @@ const AddArticle = () => {
                   className="hide-input"
                   type="select"
                   value={categorySelected.categoryId}
-                  {...register('categoryId', {
-                    required: 'You must choose category!',
+                  {...register("categoryId", {
+                    required: "You must choose category!",
                   })}
                 />
               </div>
@@ -170,17 +180,17 @@ const AddArticle = () => {
                 variant="outlined"
                 defaultValue={title}
                 error={!!errors.title}
-                {...register('title', {
-                  required: 'Field is empty',
+                {...register("title", {
+                  required: "Field is empty",
                   maxLength: {
                     value: 600,
-                    message: '600 letters maximum',
+                    message: "600 letters maximum",
                   },
                 })}
                 sx={{
                   minWidth: 200,
-                  '--Textarea-focusedThickness':
-                    'var(--joy-focus-thickness, 1px)',
+                  "--Textarea-focusedThickness":
+                    "var(--joy-focus-thickness, 1px)",
                 }}
               />
               {errors.title && <p>{errors.title.message}</p>}
@@ -190,17 +200,17 @@ const AddArticle = () => {
                 minRows={7}
                 variant="outlined"
                 error={!!errors.articleText}
-                {...register('articleText', {
-                  required: 'Field is empty',
+                {...register("articleText", {
+                  required: "Field is empty",
                   maxLength: {
                     value: 4000,
-                    message: '4000 letters maximum',
+                    message: "4000 letters maximum",
                   },
                 })}
                 sx={{
                   minWidth: 200,
-                  '--Textarea-focusedThickness':
-                    'var(--joy-focus-thickness, 1px)',
+                  "--Textarea-focusedThickness":
+                    "var(--joy-focus-thickness, 1px)",
                 }}
               />
               {errors.articleText && <p>{errors.articleText.message}</p>}
