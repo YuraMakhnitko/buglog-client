@@ -16,11 +16,6 @@ import Box from "@mui/material/Box";
 import SelectCategory from "../components/SelectCategory";
 
 const AddArticle = () => {
-  const options = {
-    maxSizeMB: 0.05,
-    maxWidthOrHeight: 1920,
-    useWebWorker: true,
-  };
   const hostUrl = "src";
   const hostArticleImgUrl = "https://bublog-back.onrender.com/";
   const categoryText = "Choose Category";
@@ -35,7 +30,7 @@ const AddArticle = () => {
   const [imgUrlOnServer, setImgUrlOnServer] = useState("");
   const [imgType, setImgType] = useState("");
   const [title, setTitle] = useState("");
-  const [articleText, setArticleText] = useState();
+  const [articleText, setArticleText] = useState("");
   console.log(imgUrlOnServer);
 
   const [categorySelected, setCategorySelected] = useState({
@@ -66,11 +61,15 @@ const AddArticle = () => {
 
   const handleAddImage = async (event) => {
     try {
+      const options = {
+        maxSizeMB: 0.1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
       const formData = new FormData();
       const fileToCompress = event.target.files[0];
-      setImgType(fileToCompress.type);
       const file = await imageCompression(fileToCompress, options);
-      console.log(file);
+      setImgType(file.type);
       formData.append("image", file, file.name);
       const { data } = await axios.post("/upload/articles", formData);
       setArticleImgUrl(`${hostUrl}${data.url}`);
@@ -80,7 +79,7 @@ const AddArticle = () => {
       alert("Error when uploading file");
     }
   };
-
+  console.log(imgType, "imgType");
   const createNewArticle = async (formData) => {
     const fields = {
       ...formData,
