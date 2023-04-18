@@ -61,7 +61,7 @@ const UserAccount = () => {
 
   const options = {
     maxSizeMB: 0.05,
-    maxWidthOrHeight: 1920,
+    maxWidthOrHeight: 1200,
     useWebWorker: true,
   };
 
