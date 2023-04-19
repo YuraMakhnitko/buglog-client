@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 
 import { useSelector } from "react-redux";
+import { Button } from "@mui/material";
+import { IoIosArrowDown } from "react-icons/io";
 
 const SelectCategory = ({ categorySelected, setCategorySelected }) => {
   const categoryRef = useRef();
@@ -49,9 +51,14 @@ const SelectCategory = ({ categorySelected, setCategorySelected }) => {
       ref={categoryRef}
       onClick={useClickOutside(categoryRef)}
     >
-      <p className="add-article__category" onClick={setPopupState}>
+      <Button onClick={setPopupState} size="small" variant="outlined">
+        {" "}
+        <p className="header__category-title-name">{categorySelected}</p>
+        <IoIosArrowDown className="header__category-arrow" />
+      </Button>
+      {/* <p className="add-article__category" onClick={setPopupState}>
         {categorySelected}
-      </p>
+      </p> */}
       <div className={`add-article__categories-box ${popup ? popupOpen : ""}`}>
         {categoriesList.map((category) => (
           <button

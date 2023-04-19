@@ -5,6 +5,9 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import imageCompression from "browser-image-compression";
 
+import IconButton from "@mui/material/IconButton";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
+
 import { useForm } from "react-hook-form";
 import Avatar from "@mui/material/Avatar";
 import AvatarNoImg from "../components/AvatarNoImg";
@@ -79,7 +82,7 @@ const AddArticle = () => {
       alert("Error when uploading file");
     }
   };
-  console.log(imgType, "imgType");
+  // console.log(imgType, "imgType");
   const createNewArticle = async (formData) => {
     const fields = {
       ...formData,
@@ -148,8 +151,16 @@ const AddArticle = () => {
                   Delete Image
                 </Button>
               ) : (
-                <Button variant="contained" component="label">
-                  Upload Image
+                <Button
+                  size="small"
+                  variant="contained"
+                  component="label"
+                  className="add-article__upload-button"
+                >
+                  <PhotoCamera
+                    sx={{ width: 22, height: 22 }}
+                    className="add-article__photo-icon"
+                  />
                   <input
                     hidden
                     accept="image/*"
@@ -157,6 +168,7 @@ const AddArticle = () => {
                     type="file"
                     onChange={handleAddImage}
                   />
+                  Upload Image
                 </Button>
               )}
               <div className="add-article__category">
