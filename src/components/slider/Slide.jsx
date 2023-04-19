@@ -1,19 +1,20 @@
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import axios from '../../redux/settings/axios';
+import axios from "../../redux/settings/axios";
 
-import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import Avatar from '@mui/material/Avatar';
-import AvatarNoImg from '../AvatarNoImg';
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import Avatar from "@mui/material/Avatar";
+import AvatarNoImg from "../AvatarNoImg";
 
-import { useFormatDate } from '../../hooks/useFormatDate';
+import { useFormatDate } from "../../hooks/useFormatDate";
+import ContactSkeleton from "../skeletons/ContactSkeleton";
 
 const Slide = ({ slide }) => {
-  const hostImgUrl = 'https://bublog-back.onrender.com/';
+  const hostImgUrl = "https://bublog-back.onrender.com/";
 
   const [commentsAmount, setCommentsAmount] = useState();
   const { month, year, day, time } = useFormatDate(slide.createdAt);
@@ -27,7 +28,7 @@ const Slide = ({ slide }) => {
 
   const articleSubText =
     slide.articleText.length > 150
-      ? slide.articleText.slice(0, 150).concat('...')
+      ? slide.articleText.slice(0, 150).concat("...")
       : slide.articleText;
 
   useEffect(() => {
@@ -49,14 +50,16 @@ const Slide = ({ slide }) => {
       <div className="article">
         <div className="article__box-image">
           <div className="article__image-ibg">
-            <Link
-              to={`/${slide.category}/${slide._id}`}
-              className="article__title-link"
-            >
-              {slide.articleImgUrl && (
+            {slide.articleImgUrl ? (
+              <Link
+                to={`/${slide.category}/${slide._id}`}
+                className="article__title-link"
+              >
                 <img src={`${hostImgUrl}${slide.articleImgUrl}`} alt="img" />
-              )}
-            </Link>
+              </Link>
+            ) : (
+              <ContactSkeleton />
+            )}
           </div>
         </div>
         <div className="article__content article__content_slide">
@@ -93,14 +96,14 @@ const Slide = ({ slide }) => {
                 <div className="article__views">
                   <RemoveRedEyeIcon color="primary" />
 
-                  <span>{slide.vievCount ? slide.vievCount : ''}</span>
+                  <span>{slide.vievCount ? slide.vievCount : ""}</span>
                 </div>
                 <Link
                   to={`/${slide.category}/${slide._id}`}
                   className="article__comments"
                 >
                   <QuestionAnswerIcon color="primary" />
-                  <span>{commentsAmount ? commentsAmount : ''}</span>
+                  <span>{commentsAmount ? commentsAmount : ""}</span>
                 </Link>
               </div>
             </div>

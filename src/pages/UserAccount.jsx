@@ -76,7 +76,7 @@ const UserAccount = () => {
 
   const { handleSubmit } = useForm();
 
-  console.log(avatarUrl, "avatarUrl");
+  // console.log(avatarUrl, "avatarUrl");
 
   const handleChangeFile = async (event) => {
     try {
@@ -109,10 +109,15 @@ const UserAccount = () => {
     navigate("/");
   };
 
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
+
   useEffect(() => {
     if (!isAuth) {
       navigate("/auth/login");
     }
+    window.scrollTo(0, 0);
   }, []);
 
   return (

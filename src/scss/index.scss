@@ -93,6 +93,11 @@
     }
   }
 
+  // .article__top-box
+  &__top-box {
+    position: relative;
+  }
+
   &__user-data {
     display: flex;
     flex-direction: column;

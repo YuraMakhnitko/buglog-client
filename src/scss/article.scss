@@ -1,6 +1,7 @@
 // ==============FULL ARTICLE STYLES=================
 
 .full-article {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding-bottom: 30px;
@@ -78,7 +79,7 @@
   // .full-article__text
 
   &__text {
-    font-family: 'Source Serif Pro';
+    font-family: "Source Serif Pro";
     font-style: normal;
     font-weight: 400;
     font-size: 16px;

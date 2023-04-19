@@ -25,4 +25,73 @@
 
 .hide-input {
   transform: scale(0.0001);
+  padding: none;
+  margin: none;
+  position: absolute;
+}
+
+.contact-skeleton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(25, 118, 210, 0.7);
+
+  // .contact-skeleton__contacts
+
+  &__contacts {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    height: 100%;
+    width: 100%;
+  }
+
+  // .contact-skeleton__icons-block
+
+  &__icons-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  // .contact-skeleton__text-block
+  &__text-block {
+  }
+
+  // .contact-skeleton__text
+  &__text {
+    max-width: 350px;
+    text-align: center;
+    font-family: "Tenor Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.4;
+    // text-transform: uppercase;
+    color: #fff;
+  }
+
+  // .contact-skeleton__contact-link
+
+  &__contact-link {
+    opacity: 0.9;
+    transition: opacity 0.2s ease 0s;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  // .contact-skeleton__contact-icon
+
+  &__contact-icon {
+    color: #fff;
+    width: 50px;
+    height: 50px;
+  }
 }

@@ -32,13 +32,11 @@ const Article = () => {
 
   const { month, year, day, time } = useFormatDate(article.createdAt);
 
-  // console.log(isLoading, "isLoading");
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
     axios
       .get(`/articles/${id}`)
       .then((res) => {
@@ -74,15 +72,14 @@ const Article = () => {
               />
             </div>
           )}
-
-          {!isLoading && isAuth && user._id === article.user._id ? (
-            <EditBlock
-              onClickAction={onClickRemove}
-              searchId={article._id}
-              objType={"article"}
-            />
-          ) : null}
         </div>
+        {!isLoading && isAuth && user._id === article.user._id ? (
+          <EditBlock
+            onClickAction={onClickRemove}
+            searchId={article._id}
+            objType={"article"}
+          />
+        ) : null}
         <p className="full-article__category">{categoryName.title}</p>
         <div className="full-article__content">
           <h2 className="full-article__title">{article.title}</h2>

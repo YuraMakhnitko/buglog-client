@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import imageCompression from "browser-image-compression";
 
-import IconButton from "@mui/material/IconButton";
+// import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 import { useForm } from "react-hook-form";
@@ -34,7 +34,7 @@ const AddArticle = () => {
   const [imgType, setImgType] = useState("");
   const [title, setTitle] = useState("");
   const [articleText, setArticleText] = useState("");
-  console.log(imgUrlOnServer);
+  console.log(isEditing, "isEditing");
 
   const [categorySelected, setCategorySelected] = useState({
     title: categoryText,
@@ -46,7 +46,7 @@ const AddArticle = () => {
       axios.get(`/articles/${id}`).then(({ data }) => {
         setTitle(data.title);
         setArticleText(data.articleText);
-        setArticleImgUrl(`${data.articleImgUrl}`);
+        setArticleImgUrl(data.articleImgUrl);
         setImgUrlOnServer(`${hostArticleImgUrl}${data.articleImgUrl}`);
         const findCategory = categories.find(
           (item) => item.categoryId === data.category
@@ -82,12 +82,12 @@ const AddArticle = () => {
       alert("Error when uploading file");
     }
   };
-  // console.log(imgType, "imgType");
+  console.log(articleImgUrl, "articleImgUrlLLLLLLLLLLL");
   const createNewArticle = async (formData) => {
     const fields = {
       ...formData,
-      articleImgUrl: `${articleImgUrl}`,
-      imgArticleUrl: `${articleImgUrl}`,
+      articleImgUrl: articleImgUrl,
+      imgArticleUrl: articleImgUrl,
       imgType: imgType,
     };
 
@@ -109,6 +109,10 @@ const AddArticle = () => {
   const onClickDeletImage = () => {
     setArticleImgUrl("");
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="full-article__comments comments">
@@ -142,15 +146,7 @@ const AddArticle = () => {
               </div>
               {articleImgUrl && <img src={`${imgUrlOnServer}`} />}
 
-              {articleImgUrl ? (
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={onClickDeletImage}
-                >
-                  Delete Image
-                </Button>
-              ) : (
+              {!isEditing || (!articleImgUrl && isEditing) ? (
                 <Button
                   size="small"
                   variant="contained"
@@ -169,6 +165,15 @@ const AddArticle = () => {
                     onChange={handleAddImage}
                   />
                   Upload Image
+                </Button>
+              ) : (
+                <Button
+                  className="add-article__upload-button"
+                  variant="contained"
+                  color="error"
+                  onClick={onClickDeletImage}
+                >
+                  Delete Image
                 </Button>
               )}
               <div className="add-article__category">
@@ -242,7 +247,6 @@ const AddArticle = () => {
           Send
         </Button>
       </Box>
-      <div className="add-article__items"></div>
     </div>
   );
 };

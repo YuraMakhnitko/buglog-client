@@ -1,27 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import { useDispatch, useSelector } from 'react-redux';
-import axios from '../redux/settings/axios';
+import { useDispatch, useSelector } from "react-redux";
+import axios from "../redux/settings/axios";
 
-import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import Skeleton from '@mui/material/Skeleton';
-import Avatar from '@mui/material/Avatar';
-import AvatarNoImg from '../components/AvatarNoImg';
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import Skeleton from "@mui/material/Skeleton";
+import Avatar from "@mui/material/Avatar";
+import AvatarNoImg from "../components/AvatarNoImg";
 
-import EditBlock from './EditBlock';
+import EditBlock from "./EditBlock";
 
-import { useFormatDate } from '../hooks/useFormatDate';
+import { useFormatDate } from "../hooks/useFormatDate";
 
 import {
   fetchCategory,
   fetchRemoveArticle,
-} from '../redux/filter/athyncActions';
+} from "../redux/filter/athyncActions";
 
 const ArticleCard = ({ article }) => {
-  const hostImgUrl = 'https://bublog-back.onrender.com/';
+  const hostImgUrl = "https://bublog-back.onrender.com/";
+
+  const articleSubText =
+    article.articleText.length > 100
+      ? article.articleText.slice(0, 100).concat("...")
+      : article.articleText;
 
   const dispatch = useDispatch();
   const { isAuth, user } = useSelector((state) => state.auth);
@@ -67,28 +72,27 @@ const ArticleCard = ({ article }) => {
       <div className="article__content">
         <div className="article__top-box">
           <div className="article__box-image">
-            <Link
-              to={`/${categoryId}/${article._id}`}
-              className="article__title-link"
-            >
-              {article.articleImgUrl && (
+            {article.articleImgUrl && (
+              <Link
+                to={`/${categoryId}/${article._id}`}
+                className="article__title-link"
+              >
                 <div className="article__image-ibg">
                   <img
                     src={`${hostImgUrl}${article.articleImgUrl}`}
                     alt="img"
                   />
                 </div>
-              )}
-            </Link>
-
-            {isAuth && user._id === article.user._id ? (
-              <EditBlock
-                searchId={article._id}
-                onClickAction={onClickRemove}
-                objType={'article'}
-              />
-            ) : null}
+              </Link>
+            )}
           </div>
+          {isAuth && user._id === article.user._id ? (
+            <EditBlock
+              searchId={article._id}
+              onClickAction={onClickRemove}
+              objType={"article"}
+            />
+          ) : null}
           <div className="article__top-content">
             <p className="article__category-title">{categoryName.title}</p>
             <Link
@@ -104,6 +108,9 @@ const ArticleCard = ({ article }) => {
               timeam accusata, hinc justo falli id eum, ferri novum molestie eos
               cu.
             </p>
+            {!article.articleImgUrl && (
+              <p className="article__text article__text">{articleSubText}</p>
+            )}
           </div>
         </div>
         <div className="article__bottom article__bottom_category">
@@ -135,7 +142,7 @@ const ArticleCard = ({ article }) => {
               className="article__comments"
             >
               <QuestionAnswerIcon color="primary" />
-              <span>{commentsAmount ? commentsAmount : ''}</span>
+              <span>{commentsAmount ? commentsAmount : ""}</span>
             </Link>
           </div>
         </div>
