@@ -10,17 +10,26 @@
     background-color: #fff;
     padding-left: 120px;
     padding-right: 120px;
-    padding-top: 30px;
+    padding-top: 120.6px;
     padding-bottom: 60px;
     @media (max-width: 1035px) {
-      padding: 60px 60px;
+      padding-top: 120.6px;
+      padding-left: 60px;
+      padding-right: 60px;
+      padding-bottom: 60px;
     }
     @media (max-width: 895px) {
-      padding: 30px 30px;
+      padding-top: 120.6px;
+      padding-left: 30px;
+      padding-right: 30px;
+      padding-bottom: 30px;
     }
 
     @media (max-width: 785px) {
-      padding: 15px;
+      padding-top: 96.4px;
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-bottom: 15px;
     }
 
     @media (max-width: 767.98px) {
@@ -136,7 +145,7 @@
   // .article__title
 
   &__title {
-    font-family: 'Tenor Sans';
+    font-family: "Tenor Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 36px;
@@ -166,7 +175,7 @@
   // .article__text
 
   &__text {
-    font-family: 'Source Serif Pro';
+    font-family: "Source Serif Pro";
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -300,7 +309,7 @@
     @media (max-width: 767.98px) {
       grid-template-columns: repeat(2, 1fr);
     }
-    @media (max-width: 520px) {
+    @media (max-width: 550px) {
       grid-template-columns: repeat(1, 1fr);
     }
   }

@@ -1,57 +1,57 @@
-import React, { useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { styled, alpha } from '@mui/material/styles';
-import { Link, useNavigate } from 'react-router-dom';
+import React from "react";
+import { useSelector } from "react-redux";
+import { styled, alpha } from "@mui/material/styles";
+import { Link, useNavigate } from "react-router-dom";
 
-import { Button } from '@mui/material';
-import Menu from '@mui/material/Menu';
-import IconButton from '@mui/material/IconButton';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import MenuItem from '@mui/material/MenuItem';
-import Divider from '@mui/material/Divider';
-import { HiOutlineDocumentAdd } from 'react-icons/hi';
-import { BiLogOut, BiLogIn, BiRegistered } from 'react-icons/bi';
+import { Button } from "@mui/material";
+import Menu from "@mui/material/Menu";
+import IconButton from "@mui/material/IconButton";
+import MoreIcon from "@mui/icons-material/MoreVert";
+import MenuItem from "@mui/material/MenuItem";
+import Divider from "@mui/material/Divider";
+import { HiOutlineDocumentAdd } from "react-icons/hi";
+import { BiLogOut, BiLogIn, BiRegistered } from "react-icons/bi";
 
-import { setLogOut } from '../redux/auth/slice';
-import { useDispatch } from 'react-redux';
-import { useScreenSize } from '../hooks/useScreenSize';
+import { setLogOut } from "../redux/auth/slice";
+import { useDispatch } from "react-redux";
+import { useScreenSize } from "../hooks/useScreenSize";
 
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
     anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'right',
+      vertical: "bottom",
+      horizontal: "right",
     }}
     transformOrigin={{
-      vertical: 'top',
-      horizontal: 'right',
+      vertical: "top",
+      horizontal: "right",
     }}
     {...props}
   />
 ))(({ theme }) => ({
-  '& .MuiPaper-root': {
+  "& .MuiPaper-root": {
     borderRadius: 6,
     marginTop: theme.spacing(1),
     minWidth: 180,
     color:
-      theme.palette.mode === 'light'
-        ? 'rgb(55, 65, 81)'
+      theme.palette.mode === "light"
+        ? "rgb(55, 65, 81)"
         : theme.palette.grey[300],
     boxShadow:
-      'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-    '& .MuiMenu-list': {
-      padding: '4px 0',
+      "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
+    "& .MuiMenu-list": {
+      padding: "4px 0",
     },
-    '& .MuiMenuItem-root': {
-      fontFamily: 'Libre Franklin',
+    "& .MuiMenuItem-root": {
+      fontFamily: "Libre Franklin",
       fontSize: 14,
-      '& .MuiSvgIcon-root': {
+      "& .MuiSvgIcon-root": {
         fontSize: 24,
-        color: '#1976d2',
+        color: "#1976d2",
         marginRight: theme.spacing(1.5),
       },
-      '&:active': {
+      "&:active": {
         backgroundColor: alpha(
           theme.palette.primary.main,
           theme.palette.action.selectedOpacity
@@ -65,8 +65,8 @@ const UserMenu = () => {
   const dispatch = useDispatch();
   const screenSize = useScreenSize();
   const navigate = useNavigate();
-  const { user, isAuth } = useSelector((state) => state.auth);
-  const moreButtonStyle = isAuth ? 'more-icon' : '';
+  const { isAuth } = useSelector((state) => state.auth);
+  const moreButtonStyle = isAuth ? "more-icon" : "";
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -78,10 +78,10 @@ const UserMenu = () => {
   };
 
   const logOutHandler = () => {
-    if (window.confirm('Are you sure you want to logout?')) {
+    if (window.confirm("Are you sure you want to logout?")) {
       dispatch(setLogOut());
       handleClose();
-      window.localStorage.removeItem('token');
+      window.localStorage.removeItem("token");
     }
   };
 
@@ -95,11 +95,10 @@ const UserMenu = () => {
         size="large"
         aria-label="display more actions"
         edge="end"
-        // color="inherit"
         color="primary"
-        aria-controls={open ? 'demo-customized-menu' : undefined}
+        aria-controls={open ? "demo-customized-menu" : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
+        aria-expanded={open ? "true" : undefined}
         variant="contained"
         onClick={handleClick}
         className={moreButtonStyle}
@@ -108,7 +107,7 @@ const UserMenu = () => {
       </IconButton>
       <StyledMenu
         MenuListProps={{
-          'aria-labelledby': 'demo-customized-button',
+          "aria-labelledby": "demo-customized-button",
         }}
         anchorEl={anchorEl}
         open={open}
@@ -125,7 +124,7 @@ const UserMenu = () => {
           <Link to="/auth/register">
             <MenuItem onClick={handleClose} disableRipple>
               <BiRegistered className="MuiSvgIcon-root" />
-              Sing Up!
+              Sign Up!
             </MenuItem>
           </Link>
         )}
@@ -139,7 +138,6 @@ const UserMenu = () => {
         ) : (
           <Link to="/auth/login">
             <MenuItem onClick={handleClose} disableRipple>
-              {/* <BiLogOut className="MuiSvgIcon-root" /> */}
               <BiLogIn className="MuiSvgIcon-root" />
               Login
             </MenuItem>

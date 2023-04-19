@@ -1,21 +1,21 @@
-import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from '../redux/settings/axios';
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "../redux/settings/axios";
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 
-import { fetchRemoveArticle } from '../redux/filter/athyncActions';
+import { fetchRemoveArticle } from "../redux/filter/athyncActions";
 
-import { useFormatDate } from '../hooks/useFormatDate';
+import { useFormatDate } from "../hooks/useFormatDate";
 
-import EditBlock from '../components/EditBlock';
-import Comments from '../components/comments/index';
-import ArticleSkeleton from '../components/skeletons/ArticleSkeleton';
-import Avatar from '@mui/material/Avatar';
-import AvatarNoImg from '../components/AvatarNoImg';
+import EditBlock from "../components/EditBlock";
+import Comments from "../components/comments/index";
+import ArticleSkeleton from "../components/skeletons/ArticleSkeleton";
+import Avatar from "@mui/material/Avatar";
+import AvatarNoImg from "../components/AvatarNoImg";
 
 const Article = () => {
-  const hostImgUrl = 'https://bublog-back.onrender.com/';
+  const hostImgUrl = "https://bublog-back.onrender.com/";
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,13 +28,17 @@ const Article = () => {
   const [article, setArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
-  const [categoryName, setCategoryName] = useState('');
+  const [categoryName, setCategoryName] = useState("");
 
   const { month, year, day, time } = useFormatDate(article.createdAt);
 
-  console.log(isLoading, 'isLoading');
+  // console.log(isLoading, "isLoading");
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
+    // window.scrollTo(0, 0);
     axios
       .get(`/articles/${id}`)
       .then((res) => {
@@ -47,16 +51,16 @@ const Article = () => {
       })
       .catch((error) => {
         console.warn(error);
-        alert('Error when gettin article');
+        alert("Error when gettin article");
       });
   }, [commentsUpdated, categories, id]);
 
   const onClickRemove = () => {
     dispatch(fetchRemoveArticle(article._id));
-    navigate('/');
+    navigate("/");
   };
 
-  console.log(article, 'article');
+  console.log(article, "article");
 
   return !isLoading ? (
     <>
@@ -75,7 +79,7 @@ const Article = () => {
             <EditBlock
               onClickAction={onClickRemove}
               searchId={article._id}
-              objType={'article'}
+              objType={"article"}
             />
           ) : null}
         </div>
@@ -94,7 +98,7 @@ const Article = () => {
             )}
             <div>
               <p className="full-article__author">
-                By {isLoading ? '' : article.user.name}
+                By {isLoading ? "" : article.user.name}
               </p>
               <p className="article__data">{`${year} ${month} ${day}, ${time}`}</p>
             </div>

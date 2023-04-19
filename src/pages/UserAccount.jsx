@@ -82,8 +82,8 @@ const UserAccount = () => {
     try {
       const formData = new FormData();
       const fileToCompress = event.target.files[0];
-      setImgType(file.type);
       const file = await imageCompression(fileToCompress, options);
+      setImgType(file.type);
       formData.append("image", file, file.name);
       const { data } = await axios.post(
         `/upload/avatars/${user._id}`,
