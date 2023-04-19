@@ -13,17 +13,27 @@ const ContactSkeleton = () => {
           </p>
         </div>
         <div className="contact-skeleton__icons-block">
-          <a href="#" className="contact-skeleton__contact-link">
+          <a
+            href="tg://resolve?domain=@bizoru82"
+            className="contact-skeleton__contact-link"
+          >
             <FaTelegram className="contact-skeleton__contact-icon" />
           </a>
-          <a href="#" className="contact-skeleton__contact-link">
+          <a
+            href="https://github.com/YuraMakhnitko?tab=repositories"
+            target="_blank"
+            className="contact-skeleton__contact-link"
+          >
             <FaGithub className="contact-skeleton__contact-icon" />
           </a>
           <a href="#" className="contact-skeleton__contact-link">
             <BsLinkedin className="contact-skeleton__contact-icon" />
           </a>
 
-          <a href="#" className="contact-skeleton__contact-link">
+          <a
+            href="Dzindzia(Юра)#1681"
+            className="contact-skeleton__contact-link"
+          >
             <BsDiscord className="contact-skeleton__contact-icon" />
           </a>
         </div>

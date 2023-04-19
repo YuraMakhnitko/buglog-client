@@ -25,17 +25,24 @@ const Footer = () => {
             </p>
           </div>
           <div className="footer__contacts">
-            <a href="#" className="footer__contact-link">
+            <a
+              href="tg://resolve?domain=@bizoru82"
+              className="footer__contact-link"
+            >
               <FaTelegram className="footer__contact-icon" />
             </a>
-            <a href="#" className="footer__contact-link">
+            <a
+              href="https://github.com/YuraMakhnitko?tab=repositories"
+              target="_blank"
+              className="footer__contact-link"
+            >
               <FaGithub className="footer__contact-icon" />
             </a>
             <a href="#" className="footer__contact-link">
               <BsLinkedin className="footer__contact-icon" />
             </a>
 
-            <a href="#" className="footer__contact-link">
+            <a href="Dzindzia(Юра)#1681" className="footer__contact-link">
               <BsDiscord className="footer__contact-icon" />
             </a>
           </div>
