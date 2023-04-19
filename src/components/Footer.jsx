@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import { FaTelegram, FaGithub } from "react-icons/fa";
-import { BsLinkedin, BsDiscord } from "react-icons/bs";
-import { ImBlogger2 } from "react-icons/im";
-import { FaCat } from "react-icons/fa";
+import { FaTelegram, FaGithub } from 'react-icons/fa';
+import { BsLinkedin, BsDiscord } from 'react-icons/bs';
+import { ImBlogger2 } from 'react-icons/im';
+import { FaCat } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -38,7 +38,11 @@ const Footer = () => {
             >
               <FaGithub className="footer__contact-icon" />
             </a>
-            <a href="#" className="footer__contact-link">
+            <a
+              href="http://linkedin.com/in/yuriy-makhnitko-253115259"
+              target="_blank"
+              className="footer__contact-link"
+            >
               <BsLinkedin className="footer__contact-icon" />
             </a>
 

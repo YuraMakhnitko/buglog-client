@@ -1,5 +1,5 @@
-import { FaTelegram, FaGithub } from "react-icons/fa";
-import { BsLinkedin, BsDiscord } from "react-icons/bs";
+import { FaTelegram, FaGithub } from 'react-icons/fa';
+import { BsLinkedin, BsDiscord } from 'react-icons/bs';
 //
 const ContactSkeleton = () => {
   return (
@@ -7,9 +7,8 @@ const ContactSkeleton = () => {
       <div className="contact-skeleton__contacts">
         <div className="contact-skeleton__text-block">
           <p className="contact-skeleton__text">
-            {" "}
-            Ooops... It sims this article has no image, so you can contact me...
-            😊{" "}
+            {' '}
+            Ooops... It seems this article doesn't have a picture... 😊{' '}
           </p>
         </div>
         <div className="contact-skeleton__icons-block">
@@ -26,7 +25,11 @@ const ContactSkeleton = () => {
           >
             <FaGithub className="contact-skeleton__contact-icon" />
           </a>
-          <a href="#" className="contact-skeleton__contact-link">
+          <a
+            href="http://linkedin.com/in/yuriy-makhnitko-253115259"
+            target="_blank"
+            className="contact-skeleton__contact-link"
+          >
             <BsLinkedin className="contact-skeleton__contact-icon" />
           </a>
 
